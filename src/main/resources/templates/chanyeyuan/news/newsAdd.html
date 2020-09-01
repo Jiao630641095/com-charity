@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>添加新闻</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<style>
+    .layui-anim {
+        text-align: center;
+    }
+</style>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1">
+    <div class="layui-form-item">
+        <label class="layui-form-label">新闻标题</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input title" lay-verify="required" placeholder="请输入新闻标题"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">新闻类型</label>
+        <div class="layui-input-inline">
+            <select  name="tid" lay-verify="required" lay-search="">
+                <option th:each="model : ${typeList}" th:value="${model.id}" th:text="${model.typename}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">封 面 图</label>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="img"><i class="layui-icon"></i>选择封面图</button>
+        </div>
+        <div class="layui-upload-form">
+            <img class="layui-upload-img" id="imgUrl" style="width: 104.47px;height: 104.74px;padding-left: 120px;"/>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">文章作者</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input author" placeholder="请输入文章作者"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容摘要</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input abstracted" lay-verify="required" placeholder="请输入内容摘要"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">新闻内容</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="content" lay-verify="content" id="news_content"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="save_button">提交审批</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/news/newsAdd.js}"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>授权用户列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        关键字：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入真实姓名" class="layui-input realName"/>
+        </div>
+        <a class="layui-btn search_button"><i class="layui-icon">&#xe615;</i>查询</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn stick_button" style="background-color:#5FB878">重置</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpctrain:check">
+        <a class="layui-btn layui-btn-normal check_button">审核/驳回</a>
+    </div>
+</blockquote>
+<div class="layui-form news_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50"/>
+            <col width="20%"/>
+            <col width="10%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="15%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th style="text-align:center;">培训课程</th>
+            <th style="text-align:center;">真实姓名</th>
+            <th style="text-align:center;">电话</th>
+            <th style="text-align:center;">邮箱</th>
+            <th style="text-align:center;">人数</th>
+            <th style="text-align:center;">审核结果</th>
+            <th style="text-align:center;">申请时间</th>
+        </tr>
+        </thead>
+        <tbody class="news_content"></tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/train/trainlist.js}"></script>
+</body>
+</html>

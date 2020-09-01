@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>事件列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<style>
+</style>
+<body class="childrenBody">
+<div class="layui-form news_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50"/>
+            <col/>
+            <col width="10%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th style="text-align:center;">事件名称</th>
+            <th style="text-align:center;">是否展示</th>
+            <th style="text-align:center;">发布时间</th>
+            <th style="text-align:center;">修改时间</th>
+            <th style="text-align:center;">操作</th>
+        </tr>
+        </thead>
+        <tbody class="event_content">
+            <input type="hidden" class="layui-input url" th:value="${url}" lay-verify="required" readonly="readonly"/>
+            <input type="hidden" class="layui-input pid" th:value="${pid}" lay-verify="required" readonly="readonly"/>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/project/eventList.js}"></script>
+</body>
+</html>

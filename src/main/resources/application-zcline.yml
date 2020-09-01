@@ -1,0 +1,66 @@
+# Service
+server:
+  port: 8081
+  session-timeout: 30
+  tomcat.max-threads: 0
+  tomcat.uri-encoding: UTF-8
+  context-path: /
+
+# Spring
+spring:
+    view:
+      suffix: .html
+    datasource:
+      # mysql
+      url: jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&noAccessToProcedureBodies=true&allowMultiQueries=true
+      username: chanyeyuan
+      password: chanye
+      driver-class-name: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      ## druid
+      max-active: 20
+      initial-size: 1
+      min-idle: 3
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      poolPreparedStatements: true
+      filters: stat,wall,slf4j
+    http:
+      multipart:
+        maxFileSize: 10Mb
+        maxRequestSize: 100Mb
+    #---redis---#
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      pool.max-idle: 8
+      pool.min-idle: 0
+      pool.max-active: 8
+      pool.max-wait: -1
+      timeout: 0
+
+
+
+
+
+## FTP
+webapp:
+  name: onepaper
+  path: classpath:/static/
+net:
+  ftp:
+    imgurl: http://www.1paper.org/html
+    host: 127.0.0.1
+    username: nginx
+    password: nginx
+    encoding: utf8
+  tpc:
+      host: http://127.0.0.1:8000
+  user:
+    host: http://192.168.0.9:8090
+  paper:
+    host: http://www.1paper.org

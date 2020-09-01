@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>修改角色</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<style>
+    .layui-anim {
+        text-align: center;
+    }
+</style>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1" th:object="${model}">
+    <input type="hidden" class="layui-input id" th:value="*{id}" lay-verify="required"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input name" th:value="*{name}" lay-verify="required" placeholder="请输入角色名称"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色描述</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input remark" th:value="*{remark}" lay-verify="required"
+                   placeholder="请输入角色描述"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限分配</label>
+        <div class="layui-input-block" th:each="model : ${treeNodeList}" th:object="${model}">
+            <input type="checkbox" lay-skin="primary" th:id="*{id}" th:value="*{id}" th:title="*{name}"/>
+            <div class="layui-input-block" th:each="model : *{children}" th:object="${model}">
+                <input type="checkbox" lay-skin="primary" th:attr="data-url=*{parentId}" th:value="*{id}"
+                       th:title="*{name}"/>
+                <a th:each="model : *{children}" th:object="${model}">
+                    <input type="checkbox" lay-skin="primary" th:attr="data-url=*{parentId}" th:object="${model}"
+                           th:value="*{id}" th:title="*{name}"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="put_button">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/admin/role/roleEdit.js}"></script>
+<script th:inline="javascript">
+    layui.use(["form", "layer", "layedit", "jquery", "upload"], function () {
+        var $ = layui.jquery;
+        var zNodes = [[${permissionIds}]];
+        var s = zNodes.split(",");// 在每个逗号(,)处进行分解。
+        $(".layui-input-block input").each(function () {
+            for (var i in s){
+                if($(this).val()==s[i]){
+                    $(this).attr("checked", true);
+                    $(this).next().addClass("layui-form-checked");
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

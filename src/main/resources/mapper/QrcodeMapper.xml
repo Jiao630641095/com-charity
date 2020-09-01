@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.charity.mapper.QrcodeMapper">
+    <resultMap id="BaseResultMap" type="com.charity.entity.adai.Qrcode">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="image" property="image" jdbcType="VARCHAR" />
+        <result column="word" property="word" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <!--<result column="remark" property="remark" jdbcType="VARCHAR" />-->
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+    </resultMap>
+
+    <select id="getQrcodeList" resultMap="BaseResultMap">
+        select * from qrcode
+        where 1=1
+        and user_id = #{userId}
+        <if test="name!=null">
+            and  name = #{name}
+        </if>
+        order by id
+        desc
+        limit #{limit1},#{limit2}
+    </select>
+
+    <select id="findQrcodeForShow" resultMap="BaseResultMap">
+        select * from qrcode
+        where status = 1
+        limit 1
+    </select>
+
+
+    <select id="findQrcodeById" resultMap="BaseResultMap">
+        select * from qrcode
+        where id = #{id}
+        limit 1
+    </select>
+
+    <select id="getQrcodeListTotal" resultType="java.lang.Long">
+        select count(1) from qrcode
+        where 1=1
+        and user_id = #{userId}
+        <if test="name!=null">
+            and  name = #{name}
+        </if>
+    </select>
+
+</mapper>

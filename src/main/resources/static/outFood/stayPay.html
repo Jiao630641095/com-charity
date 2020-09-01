@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>待支付订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/datimeFormart.js"></script>
+
+		<style>
+			.mui-table-view:before{
+				height: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">待支付订单</h1>
+		</header>
+		<div class="mui-content sumitOrder">
+			<ul class="mui-table-view" style="margin: 0 0 2px;">
+				<li class="mui-table-view-cell mui-collapse">
+					<a>
+						<i>剩余时间：<span>09:55</span></i>
+					</a>
+				</li>
+			</ul>
+			<div class="mui-clearfix mui-text-center choosePay">
+			    <a class="mui-col-xs-6 mui-pull-left cancel" onclick="cancel()">取消订单</a>
+			    <a class="mui-col-xs-6 mui-pull-left" onclick="pay()"><i class="red-c">立即支付</i></a>
+			</div>
+			<ul class="mui-table-view OrderDetails">
+				<li class="mui-table-view-cell mui-media">
+					<a>
+						<img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+						<div class="mui-media-body">
+							<div>爆炒香辣鱿鱼丝</div>
+							<div style="margin:9px 0;">￥12.00</div>
+							<div>1份</div>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a>
+						<img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+						<div class="mui-media-body">
+							<div>爆炒香辣鱿鱼丝</div>
+							<div style="margin:9px 0;">￥12.00</div>
+							<div>1份</div>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="mui-text-center list-sum" id="amt">小计：￥24.00</div>
+			<div class="card">
+				<div class="card-title mui-text-center">
+					配送信息
+				</div>
+				<div class="card-body white-bg">
+					<div class="card-list">
+						<div class="card-item">
+							<span>姓名&emsp;</span>
+							<span class="gray-c" id="userName">工时费</span>
+						</div>
+						<div class="card-item">
+							<span>电话&emsp;</span>
+							<span class="gray-c" id="phone">11111111</span>
+						</div>
+						<div class="card-item">
+							<span>地址&emsp;</span>
+							<span class="gray-c" id="address">工时费</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-title mui-text-center">
+					订单信息
+				</div>
+				<div class="card-body white-bg">
+					<div class="card-list">
+						<div class="card-item">
+							<span>订单号&emsp;</span>
+							<span class="gray-c" id="id">工时费</span>
+						</div>
+						<div class="card-item">
+							<span>下单时间&emsp;</span>
+							<span class="gray-c" id="createTime">11111111</span>
+						</div>
+						<div class="card-item">
+							<span>支付方式&emsp;</span>
+							<span class="gray-c">微信支付</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+<script>
+    mui.back = function back(){
+        location.href = "index.html";
+	}
+
+    var orderId = getUrlParms("orderId");
+    if (orderId!=null){
+        $.getJSON("/canteen/getOrderDetailsByOrderId.action",{orderId:orderId},function(data) {
+			if (data.code == 4000) {
+			    var order = data.order;
+			    $("#id").text(order.id);
+                $("#createTime").text(getLocalTime(order.createTime));
+			    $("#address").text(order.address);
+			    $("#userName").text(order.userName);
+			    $("#phone").text(order.phone);
+			    $("#amt").text("小计：￥"+order.amt);
+				var list = order.orderDetailList;
+                var div ='';
+                if(list != null){
+                    $.each(list, function (index, val) {
+                        div +=['<li class="mui-table-view-cell mui-media mui-disabled">',
+                            '	<a>',
+                            '	<img class="mui-media-object mui-pull-left" src="'+val.picture+'">',
+                            '	<div class="mui-media-body">',
+                            '	<div style="margin:10px 0;">'+val.cname+'</div>',
+                            '	<div>￥'+val.price+'/份</div>',
+                            '	</div>',
+                            '	</a>',
+                            '</li>'].join("");;
+                    });
+                    $(".OrderDetails").html(div);
+                }
+			}
+        })
+	}
+	
+	function cancel() {
+        $.getJSON("/canteen/changeOrderState.action",{"id":orderId,status:-1},function (data) {
+            if (data.code == 4000) {
+                location.href = "payCancel.html?orderId="+data.orderId;
+            }
+        })
+    }
+
+	function pay() {
+        location.href = "payOrder.html?orderId="+orderId;
+    }
+
+
+</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>添加租房记录</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<style>
+    .layui-anim {
+        text-align: center;
+    }
+</style>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1">
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input qyname" lay-verify="required" placeholder="请输入公司名称"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input name" lay-verify="required" placeholder="请输入姓名"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input phone" lay-verify="required" placeholder="请输入手机号"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">付款方式</label>
+        <div class="layui-input-inline">
+            <select  name="paytype" lay-verify="required" lay-search="">
+                <option value="">请选择</option>
+                <option value="3">季度付</option>
+                <option value="6">半年付</option>
+                <option value="12">年付</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">房屋编号</label>
+        <div class="layui-input-inline">
+            <select  name="rid" lay-verify="required" lay-search="" id="roomnum">
+                <option value="">请选择</option>
+                <option th:each="model : ${rentals}" th:value="${model.id}" th:text="${model.floor+ model.roomnum}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">起始时间</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input search_input_time create_time" lay-verify="required"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上次付时间</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input search_input_time pay_time" lay-verify="required"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">终止时间</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input search_input_time end_time" lay-verify="required"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="save_button">添加记录</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/fsservice/rental/alreadyRentalAdd.js}"></script>
+</body>
+</html>

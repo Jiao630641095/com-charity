@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>提交订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/datimeFormart.js"></script>
+		<style>
+			.mui-table-view:before{
+				height: 0;
+			}
+			.tableware{
+				color: #7e7e7e;
+				font-size:14px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">提交订单</h1>
+		</header>
+		<div class="mui-content sumitOrder">
+			<ul class="mui-table-view" style="margin: 0 0 2px;">
+				<li class="mui-table-view-cell">
+					<a id="addressUpdate">
+						<i>填写地址</i>
+						<span class="mui-icon mui-icon-arrowright mui-pull-right"></span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="date mui-disabled">
+						配送时间：11：30-12：00
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="date mui-disabled">
+						配送服务仅限周一至周五工作日，<br>
+						配送范围仅限于房山科技产业园楼内及底商。
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view commodityList">
+				<li class="mui-table-view-cell mui-media">
+					<a>
+						<img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+						<div class="mui-media-body">
+							<div>爆炒香辣鱿鱼丝</div>
+							<div style="margin:9px 0;">￥12.00</div>
+							<div>1份</div>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a>
+						<img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+						<div class="mui-media-body">
+							<div>爆炒香辣鱿鱼丝</div>
+							<div style="margin:9px 0;">￥12.00</div>
+							<div>1份</div>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="mui-input-row mui-checkbox">
+				<label class="tableware">餐盒费：￥<span id="boxFee"></span></label>
+			</div>
+			<div class="mui-input-row mui-checkbox">
+				<label class="tableware">配送费：￥<span>1.5</span></label>
+			</div>
+			<div class="mui-text-center list-sum">小计：￥24.00</div>
+			<ul class="mui-table-view description" style="margin: 0 0 50px;">
+				<li class="mui-table-view-cell   mui-disabled">
+					<a>
+						填写备注
+						<span class="mui-icon mui-icon-arrowright mui-pull-right"  id="description"></span>
+					</a>
+				</li>
+			</ul>
+			<div class="mui-bar mui-bar-tab mui-text-center">
+				<i class="amt">合计金额：￥24.00</i>
+				<button class="mui-pull-right submitOrder">提交订单</button>
+			</div>
+		</div>
+	</body>
+<script>
+
+
+
+
+
+    getCartList()
+    //购物车列表
+    function getCartList() {
+        var commodityListMsg;
+        $.getJSON("/canteen/commodityList.action",function (data) {
+            commodityListMsg = data.list;
+			$.getJSON("/canteen/getCart.action",function (data) {
+				$('.commodityList').empty();
+				if (data.code == 4000){
+					if(data.cart != null){
+						var list = data.cart;
+						var div = '';
+						var sum = 0;
+						var amt = 0;
+						var boxFee = 0;
+						for (key in list){
+							var name = '';
+							var price ;
+							var box ;
+							var cid = key;
+							var picture;
+							var num = list[key];
+							$.each(commodityListMsg, function (index, val) {
+								if (val.id == cid ){
+									name = val.name;
+									price = val.price;
+                                    box = val.boxFee;
+                                    picture = val.picture;
+									return false;
+								}
+							})
+							sum += num;
+							amt += num*price;
+							boxFee += num*box;
+							div +=['<li class="mui-table-view-cell mui-media">',
+							'<a>',
+							'<img class="mui-media-object mui-pull-left" src="'+picture+'">',
+								'<div class="mui-media-body">',
+								'<div>'+name+'</div>',
+								'<div style="margin:9px 0;">￥'+price+'</div>',
+							'<div>'+num+'份</div>',
+							'</div>',
+							'</a>',
+							'</li>'].join("");
+						};
+						$(".commodityList").html(div);
+                        amt=parseInt(amt*100)/100;
+                        boxFee=parseInt(boxFee*100)/100;
+                        $(".list-sum").html("小计：￥" + (amt+boxFee+1.5));
+						$(".amt").html("合计金额：￥" + (amt+boxFee+1.5));
+						$("#boxFee").html( boxFee);
+                        alert("配送服务仅限周一至周五工作日，\n" +
+                            "配送范围仅限于房山科技产业园楼内及底商，\n" +
+                            "请点餐前仔细确认配送信息。")
+					}
+				}
+			})
+        })
+    }
+
+    //提交订单
+    $(".submitOrder").click(function () {
+        var now = new Date();
+        var day = now.getDay();
+        if (day != 0 && day != 6){
+            var description = $("#description").text();
+            $.getJSON("/canteen/addOrder.action",{description:description},function (data) {
+                if (data.code == 4000) {
+                    location.href = "payOrder.html?orderId="+data.orderId;
+                }else {
+                    alert(data.msg)
+                }
+            })
+		}else {
+            alert('配送时间为周一至周五工作日，其他时间不提供配送服务。')
+		}
+
+    })
+	
+	$("#addressUpdate").click(function () {
+        var description = $("#description").text();
+        location.href = "address.html?description="+description;
+    })
+
+	//填写备注
+    $(".description").click(function () {
+        var description = $("#description").text();
+		window.location.href = "remarks.html?description="+description;
+    })
+
+    var description = getUrlParms("description");
+    description = decodeURI(description);
+    if (description != null&&description!=undefined&&description!="undefined") {
+        $("#description").text(description);
+    }
+</script>
+</html>

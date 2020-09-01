@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>添加新闻</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<style>
+</style>
+<body class="childrenBody">
+<div style="float:left;width: 1200px;">
+    <form class="layui-form"  th:object="${model}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">事件标题</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input title" th:value="*{title}" lay-verify="required" placeholder="请输入事件名称"/>
+                <input type="hidden" class="layui-input url" th:value="*{websiteUrl}" lay-verify="required" readonly="readonly"/>
+                <input type="hidden" class="layui-input pid" th:value="*{pid}" lay-verify="required" readonly="readonly"/>
+                <input type="hidden" class="layui-input id" th:value="${id}" lay-verify="required" readonly="readonly"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新闻配图</label>
+            <div class="layui-upload-form">
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" th:src="*{illustration}" id="illustration" style="width: 104.47px;height: 104.74px"/>
+                    <p id="demoText"></p>
+                </div>
+            </div>
+            <div class="layui-upload" style="padding-left: 230px;margin-top: -60px;margin-bottom: 20px">
+                <button type="button" class="layui-btn" id="img"><i class="layui-icon"></i>选择新闻配图</button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">事件内容</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea layui-hide" name="contents" lay-verify="content"
+                          id="event_content" th:text="*{contents}"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="save_button">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/project/eventSave.js}"></script>
+</body>
+</html>

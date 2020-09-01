@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>点餐</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <!--App自定义的css-->
+    <link rel="stylesheet" type="text/css" href="css/app.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/mui.min.js"></script>
+</head>
+<style>
+    .mui-control-content .mui-loading {
+        margin-top: 50px;
+    }
+</style>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <h1 class="mui-title" id="title">点餐</h1>
+    <a class="mui-icon mui-pull-right mui-icon-search" style="cursor: pointer;"><span></span></a>
+</header>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item mui-active" href="#tabbar">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">菜单</span>
+    </a>
+    <a class="mui-tab-item order" href="#tabbar-with-chat">
+        <span class="mui-icon mui-icon-email"></span>
+        <span class="mui-tab-label">订单</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-contact">
+        <span class="mui-icon mui-icon-contact"></span>
+        <span class="mui-tab-label">个人</span>
+    </a>
+</nav>
+<div class="mui-content wrapper">
+    <!--菜单-->
+    <div id="tabbar" class="mui-control-content mui-active">
+        <div id="slider" class="mui-slider">
+            <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+                <a class="mui-control-item mui-active" href="#item1mobile">今日菜谱</a>
+                <a class="mui-control-item" href="#item2mobile">特色小炒</a>
+            </div>
+            <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+            <div class="mui-slider-group">
+                <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                    <div id="scroll1" class="mui-scroll-wrapper">
+                        <div class="mui-scroll">
+                            <ul class="mui-table-view" id="commodityTypeOne">
+                                <li class="mui-table-view-cell mui-media ">
+                                    <a>
+                                        <img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+                                        <div class="mui-media-body">
+                                            <div style="margin:10px 0;">爆炒香辣鱿鱼丝</div>
+                                            <div>￥12.00/份</div>
+                                        </div>
+                                        <img src="images/add_icon.jpg" class="add-icon btn1" style="width: 25px;" />
+                                    </a>
+                                </li>
+                                <li class="mui-table-view-cell mui-media">
+                                    <a>
+                                        <img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+                                        <div class="mui-media-body">
+                                            <div style="margin:10px 0;">爆炒香辣鱿鱼丝</div>
+                                            <div>￥12.00/份</div>
+                                        </div>
+                                        <img src="images/add_icon.jpg" class="add-icon" style="width: 25px;" />
+                                    </a>
+                                </li>
+                                <li class="mui-table-view-cell mui-media">
+                                    <a>
+                                        <img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+                                        <div class="mui-media-body">
+                                            <div style="margin:10px 0;">爆炒香辣鱿鱼丝</div>
+                                            <div>￥12.00/份</div>
+                                        </div>
+                                        <img src="images/add_icon.jpg" class="add-icon" style="width: 25px;" />
+                                    </a>
+                                </li>
+                                <li class="mui-table-view-cell mui-media">
+                                    <a>
+                                        <img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+                                        <div class="mui-media-body">
+                                            <div style="margin:10px 0;">爆炒香辣鱿鱼丝</div>
+                                            <div>￥12.00/份</div>
+                                        </div>
+                                        <img src="images/add_icon.jpg" class="add-icon" style="width: 25px;" />
+                                    </a>
+                                </li>
+                                <li class="mui-table-view-cell mui-media">
+                                    <a>
+                                        <img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+                                        <div class="mui-media-body">
+                                            <div style="margin:10px 0;">爆炒香辣鱿鱼丝</div>
+                                            <div>￥12.00/份</div>
+                                        </div>
+                                        <img src="images/add_icon.jpg" class="add-icon" style="width: 25px;" />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="item2mobile" class="mui-slider-item mui-control-content">
+                    <div id="scroll2" class="mui-scroll-wrapper">
+                        <div class="mui-scroll">
+                            <ul class="mui-table-view"  id="commodityTypeTwo">
+                                <li class="mui-table-view-cell mui-media">
+                                    <a>
+                                        <img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+                                        <div class="mui-media-body">
+                                            <div style="margin:10px 0;">爆炒香辣鱿鱼丝</div>
+                                            <div>￥12.00/份</div>
+                                        </div>
+                                        <img src="images/add_icon.jpg" class="add-icon" style="width: 25px;" />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--订单-->
+    <div id="tabbar-with-chat" class="mui-control-content">
+        <ul class="mui-table-view mui-table-view-chevron" >
+            <li class="mui-table-view-cell  mui-disabled" style="padding-right:15px ;">
+                <a  style="margin-right:-15px;" id="orderList">
+                    <div class="card">
+                        <div class="card-title mui-text-center red-c">
+                            待支付
+                        </div>
+                        <div class="card-body white-bg">
+                            <div class="card-list">
+                                <div class="card-item mui-clearfix">
+                                    <div class="card-name mui-col-xs-4 mui-pull-left">爆炒鱿鱼丝</div>
+                                    <div class="card-num mui-col-xs-4 mui-pull-left mui-text-center">1</div>
+                                    <div class="card-pic mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;12.00</div>
+                                </div>
+                                <div class="card-item mui-clearfix">
+                                    <div class="card-name mui-col-xs-4 mui-pull-left">爆炒鱿鱼丝</div>
+                                    <div class="card-num mui-col-xs-4 mui-pull-left mui-text-center">1</div>
+                                    <div class="card-pic mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;12.00</div>
+                                </div>
+                            </div>
+                            <div class="card-list-con mui-clearfix">
+                                <div class="card-date mui-col-xs-4 mui-pull-left">2018.01.31-09:45</div>
+                                <div class="card-sum mui-col-xs-4 mui-pull-left mui-text-center">2份</div>
+                                <div class="card-picSum mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;<span>24.00</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title mui-text-center green-c">
+                            已支付
+                        </div>
+                        <div class="card-body white-bg">
+                            <div class="card-list">
+                                <div class="card-item mui-clearfix">
+                                    <div class="card-name mui-col-xs-4 mui-pull-left">爆炒鱿鱼丝</div>
+                                    <div class="card-num mui-col-xs-4 mui-pull-left mui-text-center">1</div>
+                                    <div class="card-pic mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;12.00</div>
+                                </div>
+                                <div class="card-item mui-clearfix">
+                                    <div class="card-name mui-col-xs-4 mui-pull-left">爆炒鱿鱼丝</div>
+                                    <div class="card-num mui-col-xs-4 mui-pull-left mui-text-center">1</div>
+                                    <div class="card-pic mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;12.00</div>
+                                </div>
+                            </div>
+                            <div class="card-list-con mui-clearfix">
+                                <div class="card-date mui-col-xs-4 mui-pull-left">2018.01.31-09:45</div>
+                                <div class="card-sum mui-col-xs-4 mui-pull-left mui-text-center">2份</div>
+                                <div class="card-picSum mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;<span>24.00</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title mui-text-center">
+                            已取消
+                        </div>
+                        <div class="card-body white-bg">
+                            <div class="card-list">
+                                <div class="card-item mui-clearfix">
+                                    <div class="card-name mui-col-xs-4 mui-pull-left">爆炒鱿鱼丝</div>
+                                    <div class="card-num mui-col-xs-4 mui-pull-left mui-text-center">1</div>
+                                    <div class="card-pic mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;12.00</div>
+                                </div>
+                                <div class="card-item mui-clearfix">
+                                    <div class="card-name mui-col-xs-4 mui-pull-left">爆炒鱿鱼丝</div>
+                                    <div class="card-num mui-col-xs-4 mui-pull-left mui-text-center">1</div>
+                                    <div class="card-pic mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;12.00</div>
+                                </div>
+                            </div>
+                            <div class="card-list-con mui-clearfix">
+                                <div class="card-date mui-col-xs-4 mui-pull-left">2018.01.31-09:45</div>
+                                <div class="card-sum mui-col-xs-4 mui-pull-left mui-text-center">2份</div>
+                                <div class="card-picSum mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;<span>24.00</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+    <!--个人-->
+    <div id="tabbar-with-contact" class="mui-control-content">
+        <div class="user-banner">
+            <img src="images/user-banner.jpg" style="width: 100%;" />
+        </div>
+        <div class="message">
+            <!--姓名-->
+            <div class="user-name">
+                <label>填写姓名</label>
+                <input type="text" name="username"/>
+                <input type="text" name="addressId" hidden/>
+            </div>
+            <!--电话-->
+            <div class="user-phone">
+                <label>填写电话</label>
+                <input type="text" name="phone"/>
+            </div>
+            <!--地址-->
+            <div class="user-add">
+                <label>填写地址</label>
+                <input type="text" name="address"></input>
+            </div>
+        </div>
+    </div>
+    <!--购物车-->
+    <div id="popover" class="mui-popover">
+        <div class="mui-text-center popover-title">
+            已选
+            <i class="mui-icon mui-icon-close mui-pull-right" style="font-size: 30px;line-height: 40px;"></i>
+        </div>
+        <div class="popover-body">
+            <div class="popover-item mui-text-center mui-clearfix">
+                <div class="mui-pull-left mui-col-xs-4">报废和的时间</div>
+                <div class="mui-pull-left mui-col-xs-2">￥12.00</div>
+                <div class="mui-pull-left mui-col-xs-2"><i class="foodNum">1</i>份</div>
+                <div class="mui-pull-left mui-col-xs-2 reduceNum mui-icon mui-icon-minus"></div>
+                <div class="mui-pull-right mui-col-xs-2 sumNum mui-icon mui-icon-plus"></div>
+            </div>
+            <div class="popover-item mui-text-center mui-clearfix">
+                <div class="mui-pull-left mui-col-xs-4">报废和的时间</div>
+                <div class="mui-pull-left mui-col-xs-2">￥12.00</div>
+                <div class="mui-pull-left mui-col-xs-2"><i class="foodNum">1</i>份</div>
+                <div class="mui-pull-left mui-col-xs-2 reduceNum mui-icon mui-icon-minus"></div>
+                <div class="mui-pull-right mui-col-xs-2 sumNum mui-icon mui-icon-plus"></div>
+            </div>
+            <div class="popover-item mui-text-center mui-clearfix">
+                <div class="mui-pull-left mui-col-xs-4 red-c">合计</div>
+                <div class="mui-pull-left mui-col-xs-2 red-c" id="cartAmt">￥24.00</div>
+                <div class="mui-pull-left mui-col-xs-2 red-c"><i class="foodNum" id="cartSum">2</i>份</div>
+            </div>
+        </div>
+        <div class="popover-footer">
+            <button class="mui-text-center mui-pull-left mui-col-xs-6 empty" id="empty">清空</button>
+            <button class="mui-text-center mui-pull-left mui-col-xs-6 settlement">结算</button>
+        </div>
+    </div>
+    <!--订餐提示-->
+    <div id="popoverTime" class="mui-popover">
+        <div class="mui-text-center popover-title">
+            订餐时间
+            <i class="mui-icon mui-icon-close mui-pull-right" style="font-size: 30px;line-height: 40px;"></i>
+        </div>
+        <p>请您于上午9:00-12:00订餐！</p>
+    </div>
+</div>
+<div class="shopCar" id="car">
+    <img src="images/shopCar.png" />
+    <span class="circle"></span>
+</div>
+</body>
+<script src="js/datimeFormart.js"></script>
+<script src="js/cartjs.js"></script>
+
+<script>
+
+    $('.wrapper').on('touchmove', function(event) {
+        event.preventDefault();
+    });
+
+    mui.init({
+        swipeBack:false //启用右滑关闭功能
+    });
+    (function($) {
+        $('.mui-scroll-wrapper').scroll({
+            indicators: false//是否显示滚动条
+        });
+    })(mui);
+
+    //		内容区域高度
+    var H = window.innerHeight - 135;
+    $('.mui-slider-group').height(H);
+
+
+    //		更换标题
+    var title = document.getElementById("title");
+    mui('.mui-bar-tab').on('tap', 'a', function(e) {
+        title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+        if(title.innerHTML == '个人'){
+            $('.mui-bar-nav a').removeClass('mui-icon-search').addClass("saveAddress").find('span').html('保存');
+            $("#car").hide();
+        }else if(title.innerHTML == '订单'){
+            $('.mui-bar-nav a').removeClass('mui-icon-search saveAddress').find('span').html('');
+            $("#car").hide();
+        }else if(title.innerHTML == '菜单'){
+            $('.mui-bar-nav a').removeClass('saveAddress').addClass('mui-icon-search').find('span').html('');
+            $("#car").show();
+        }
+        console.log(title.innerHTML)
+    });
+
+    var commodityListMsg;
+    getOrderList()
+    getCommodityList()
+
+    //获取订单列表
+    function getOrderList() {
+        $.getJSON("/canteen/getOrderList.action",function (data) {
+            $("#orderList").empty();
+            if (data.code == 4000){
+                if(data.list != null){
+                    var list = data.list;
+                    var div = "";
+                    $.each(list, function (index, val) {
+                        var status = val.status;
+                        var statusName = '';
+                        var orderDetails  = "";
+                        var sum = 0;
+                        switch (status){
+                            case 1: statusName = "待支付" ;break;
+                            case 2: statusName = "已确认";break;
+                            case 3: statusName = "已签收";break;
+                            case -1: statusName = "已取消";break;
+                        }
+                        $.each(val.orderDetailList, function (index, val) {
+                            sum++;
+                            orderDetails += ['<div class="card-item mui-clearfix">',
+                                '	<div class="card-name mui-col-xs-4 mui-pull-left">'+val.cname+'</div>',
+                                '	<div class="card-num mui-col-xs-4 mui-pull-left mui-text-center">'+val.num+'</div>',
+                                '	<div class="card-pic mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;'+val.price+'</div>',
+                                '</div>'].join("");
+                        });
+                        div +=['							<div class="card" style="cursor: pointer;" atte="'+val.id+'" attf="'+val.status+'">',
+                            '								<div class="card-title mui-text-center red-c">',
+                            statusName,
+                            '								</div>',
+                            '								<div class="card-body white-bg">',
+                            '<div class="card-list">',
+                            orderDetails,
+                            '</div>',
+                            '<div class="card-list-con mui-clearfix">',
+                            '<div class="card-date mui-col-xs-4 mui-pull-left">'+getLocalTime(val.createTime)+'</div>',
+                            '<div class="card-sum mui-col-xs-4 mui-pull-left mui-text-center">'+sum+'份</div>',
+                            '<div class="card-picSum mui-col-xs-4 mui-pull-right mui-text-right">￥&nbsp;<span>'+val.amt+'</span></div>',
+                            '</div>',
+                            '</div>',
+                            '</div>'].join("");
+                    });
+                    $("#orderList").html(div);
+                }
+            }
+        })
+    }
+
+    //菜单列表
+    function getCommodityList() {
+        $.getJSON("/canteen/commodityList.action",function (data) {
+            $("commodityTypeOne").empty();
+            $("commodityTypeTwo").empty();
+            if (data.code == 4000){
+                if(data.list != null){
+                    var list = data.list;
+                    commodityListMsg = data.list;
+                    getCartList()
+                    var divOne = "";
+                    var divTwo = "";
+                    $.each(list, function (index, val) {
+                        var div =['<li class="mui-table-view-cell mui-media mui-disabled">',
+                            '	<a>',
+                            '	<img class="mui-media-object mui-pull-left" src="'+val.picture+'">',
+                            '	<div class="mui-media-body">',
+                            '	<div style="margin:10px 0;">'+val.name+'</div>',
+                            '	<div>￥'+val.price+'/份</div>',
+                            '	</div>',
+                            '	</a>',
+                            '	<img src="images/add_icon.jpg" class="add-icon" atte="'+val.id+'" style="width: 25px;cursor: pointer;" />',
+                            '</li>'].join("");;
+                        if (val.type==1){
+                            divOne += div;
+                        }
+                        if (val.type==2){
+                            divTwo += div;
+                        }
+                    });
+                    $("#commodityTypeOne").html(divOne);
+                    $("#commodityTypeTwo").html(divTwo);
+                }
+            }
+        })
+    }
+
+    $(document).on("click",".card",function () {
+        var id = $(this).attr("atte")
+        var status = $(this).attr("attf")
+        var url;
+        switch (status){
+            case "1": url="stayPay.html?orderId="+id;break;
+            case "2": url="payFinish.html?orderId="+id;break;
+            case "3": url="payEnd.html?orderId="+id;break;
+            case "-1": url="payCancel.html?orderId="+id;break;
+        }
+        location.href=url;
+    })
+
+
+    //用户送餐地址
+    $.getJSON("/canteen/getDeliveryInfoByWX.action",function (data) {
+        if (data.code == 4000){
+            $("input[name='username']").val(data.deliveryInfo.username)
+            $("input[name='address']").val(data.deliveryInfo.address)
+            $("input[name='phone']").val(data.deliveryInfo.phone)
+            $("input[name='addressId']").val(data.deliveryInfo.id)
+        }
+    })
+
+    //保存送餐地址
+    $(document).on('click','.saveAddress',function () {
+        var username = $("input[name='username']").val();
+        var address = $("input[name='address']").val();
+        var phone = $("input[name='phone']").val();
+        var id = $("input[name='addressId']").val();
+        var usernameReg =  /^[\u4E00-\u9FA5A-Za-z0-9]{1,8}$/;;
+        var addressReg = /^[\u4E00-\u9FA5A-Za-z0-9]{1,28}$/;
+        var phoneReg = /^[0-9]{11}$/;
+        if(username.match(usernameReg)==null){
+            alert("用户名不为空，且最多十位，不得有特殊字符");
+            return false;
+        }
+        if(address.match(addressReg)==null){
+            alert("地址不为空，且最多二十八位，不得有特殊字符");
+            return false;
+        }
+        if(phone.match(phoneReg)==null){
+            alert("手机号格式不正确");
+            return	false;
+        }
+        var info = {
+            username:username,
+            address:address,
+            phone:phone,
+            id:id
+        }
+        $.getJSON("/canteen/updateDeliveryInfoByWX.action",info,function (data) {
+            if (data.code == 4000){
+                alert("保存成功");
+                location.href = "index.html"
+            }else {
+                alert("保存失败");
+            }
+        })
+    })
+
+
+    // 打开购物车
+    document.getElementById("car").addEventListener("tap", function() {
+        //调用隐藏/显示弹出层
+
+        setTimeout(function(){mui('#popover').popover('show')},300);
+    })
+
+    //搜索
+    $(document).on('click','.mui-icon-search',function () {
+        location.href = "search.html"
+    })
+
+
+    //结算
+    $('.settlement').click(function(){
+        var nowDate = new Date();
+        var nowHours = nowDate.getHours();
+        var nowMin = nowDate.getMinutes();
+        var nowTime = nowHours + ":" + nowMin;
+        var strb = '9:00'.split (":");
+        if (strb.length != 2) {
+            return false;
+        }
+        var stre = '12:00'.split (":");
+        if (stre.length != 2) {
+            return false;
+        }
+        var strn = nowTime.split (":");
+        if (stre.length != 2) {
+            return false;
+        }
+        var b = new Date ();
+        var e = new Date ();
+        var n = new Date ();
+        b.setHours (strb[0]);
+        b.setMinutes (strb[1]);
+        e.setHours (stre[0]);
+        e.setMinutes (stre[1]);
+        n.setHours (strn[0]);
+        n.setMinutes (strn[1]);
+        if (n.getTime () - b.getTime () > 0 && n.getTime () - e.getTime () < 0) {
+            var html = $(".popover-body").html();
+            if(html!=null && html!="")
+                location.href = "sumitOrder.html";
+        } else {
+            mui("#popoverTime").popover('show');
+            return false;
+        }
+
+    });
+
+
+    $('.empty').click(function(){
+        $.getJSON("/canteen/emptyCart.action",function () {
+            /*mui('#popover').popover('hide');
+            $('.popover-body').empty();*/
+            getCartList();
+            $(".circle").html("0")
+            $(".circle").hide();
+        })
+    });
+
+
+    $('#popover .mui-icon-close').click(function(){
+        mui('#popover').popover('hide');
+    });
+    $('#popoverTime .mui-icon-close').click(function(){
+        mui('#popoverTime').popover('hide');
+    });
+</script>
+</html>

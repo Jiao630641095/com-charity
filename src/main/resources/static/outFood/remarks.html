@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>备注</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/datimeFormart.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">填写备注</h1>
+			<a class="mui-icon mui-pull-right"><span>提交</span></a>
+		</header>
+		<div class="mui-content">
+			<textarea placeholder="请填写备注" style="height: 250px;border: 0;" id="description"></textarea>
+		</div>
+	</body>
+
+	<script>
+
+        var description = getUrlParms("description");
+        description = decodeURI(description);
+        if (description != null&&description!=undefined&&description!="undefined") {
+            $("#description").val(description);
+		}
+
+		$(".mui-pull-right").click(function () {
+			location.href = "sumitOrder.html?description="+ $("#description").val();
+        })
+
+	</script>
+</html>

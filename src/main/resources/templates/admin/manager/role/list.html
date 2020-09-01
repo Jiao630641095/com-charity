@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>日志列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<form>
+    <blockquote class="layui-elem-quote news_search">
+        <div class="layui-inline">
+            关键字：
+            <div class="layui-input-inline">
+                <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input"/>
+            </div>
+            时间：
+            <div class="layui-input-inline">
+                <input type="text" value="" placeholder="请输入开始时间" class="layui-input search_input" id="laydate"/>
+            </div>
+            -
+            <div class="layui-input-inline">
+                <input type="text" value="" placeholder="请输入结束时间" class="layui-input search_input"/>
+            </div>
+            <a class="layui-btn search_btn">查询</a>
+        </div>
+        <div class="layui-inline" shiro:hasPermission="role:create">
+            <a class="layui-btn layui-btn-normal add_button" data-url="/admin/role/add">添加角色</a>
+        </div>
+        <div class="layui-inline" shiro:hasPermission="role:deleteAll">
+            <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
+        </div>
+    </blockquote>
+    <div class="layui-form news_list">
+        <table class="layui-table">
+            <colgroup>
+                <col width="50"/>
+                <col width="33%"/>
+                <col width="33%"/>
+                <col width="33%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+                <th style="text-align:center;">角色</th>
+                <th style="text-align:center;">描述</th>
+                <th style="text-align:center;">操作</th>
+            </tr>
+            </thead>
+            <tbody class="news_content">
+            <tr class="text-c" th:each="model:${pageInfo?.list}" th:object="${model}">
+                <td>
+                    <input type="checkbox" th:value="*{id}" class="boxs" name="checked" lay-skin="primary" lay-filter="choose"/>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
+                </td>
+                <td style="text-align:center;" th:text="*{name}"></td>
+                <td style="text-align:center;" th:text="*{remark}"></td>
+                <td style="text-align:center;">
+                    <a shiro:hasPermission="role:update" class="layui-btn layui-btn-mini edit_button" data-url="/admin/role/edit/"><i class="iconfont icon-edit"></i> 编辑</a>
+                    <a shiro:hasPermission="role:delete" class="layui-btn layui-btn-danger layui-btn-mini delete_button" data-url="/admin/role/"><i class="layui-icon delete">&#xe640;</i>删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--当前页码-->
+        <input type="hidden" th:value="${pageInfo?.pageNum}" th:name="pageNum" id="pageNum"/>
+        <!--总页数-->
+        <input type="hidden" th:value="${pageInfo?.total}" id="pages"/>
+    </div>
+    <div style="float: inherit" id="page"></div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/admin/role/roleList.js}"></script>
+</body>
+</html>

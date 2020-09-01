@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.charity.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.charity.entity.canteen.Order">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="amt" jdbcType="DECIMAL" property="amt" />
+    <result column="box_fee" jdbcType="DECIMAL" property="boxFee" />
+    <result column="cutlery_fee" jdbcType="DECIMAL" property="cutleryFee" />
+    <result column="transport_fee" jdbcType="DECIMAL" property="transportFee" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="evaluate" jdbcType="VARCHAR" property="evaluate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="wx" jdbcType="VARCHAR" property="wx" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <select id="getTodayOrderList" resultMap="BaseResultMap">
+      select * from s_order where 1=1
+          and create_time > CURDATE()
+      <if test="orderId != null">
+          and id = #{orderId}
+      </if>
+      <if test="status != null">
+          and status = #{status}
+      </if>
+      ORDER BY create_time DESC
+      <if test="page!=null  and limit!=''">
+        limit #{page},#{limit}
+      </if>
+  </select>
+
+  <select id="getTodayOrderListTotal" resultType="java.lang.Long">
+      select count(1) from s_order where 1=1
+          and create_time > CURDATE()
+      <if test="orderId != null">
+          and id = #{orderId}
+      </if>
+      <if test="status != null">
+          and status = #{status}
+      </if>
+  </select>
+
+  <select id="getOrderList" resultMap="BaseResultMap">
+      select * from s_order where 1=1
+      <if test="orderId != null">
+          and id = #{orderId}
+      </if>
+      <if test="status != null">
+          and status = #{status}
+      </if>
+      <if test="wx != null">
+          and wx = #{wx}
+      </if>
+      <if test="startTime!=null">
+        AND create_time  &gt; #{startTime}
+      </if>
+      <if test="endTime!=null">
+        AND create_time  &lt; #{endTime}
+      </if>
+      ORDER BY create_time DESC
+      <if test="page!=null  and limit!=''">
+        limit #{page},#{limit}
+      </if>
+  </select>
+
+  <select id="getOrderListTotal" resultType="java.lang.Long">
+      select count(1) from s_order where 1=1
+      <if test="orderId != null">
+          and id = #{orderId}
+      </if>
+      <if test="status != null">
+          and status = #{status}
+      </if>
+      <if test="wx != null">
+          and wx = #{wx}
+      </if>
+      <if test="startTime!=null">
+        AND create_time  &gt; #{startTime}
+      </if>
+      <if test="endTime!=null">
+        AND create_time  &lt; #{endTime}
+      </if>
+  </select>
+
+
+
+</mapper>

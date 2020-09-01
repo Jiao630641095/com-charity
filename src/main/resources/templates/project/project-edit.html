@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>编辑项目</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<div style="float:left;width: 1200px;">
+    <form class="layui-form" th:object="${model}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目名称</label><input type="hidden" th:value="*{id}" id="id"/>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input name" lay-verify="required" th:value="*{name}" placeholder="请输入项目名称"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">自定义属性</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" th:name="show" th:value="1" th:if="*{isShow == '1'}" checked="checked"
+                           title="展示"/>
+                    <input type="checkbox" th:name="show" th:value="1" th:unless="*{isShow == '1'}" title="展示"/>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">发起单位</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input newsAuthor" placeholder="请输入文章作者" th:value="*{initiator}"/>
+                    <input th:value="*{websiteUrl}" id="websiteUrl" type="hidden" readonly="readonly"/>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目配图</label>
+            <div class="layui-upload-form">
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" th:src="*{imgSrc}" id="imgUrl" style="width: 104.47px;height: 104.74px"/>
+                    <p id="demoText"></p>
+                </div>
+            </div>
+            <div class="layui-upload" style="padding-left: 230px;margin-top: -60px;margin-bottom: 20px">
+                <button type="button" class="layui-btn" id="img"><i class="layui-icon"></i>选择项目配图</button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">内容摘要</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容摘要" name="sketch" th:text="*{sketch}" id="sketch" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目内容</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" th:text="*{content}" id="project_content"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="save_button">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/project/projectSave.js}"></script>
+</body>
+</html>

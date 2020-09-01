@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8"/>
+    <title>政策法规列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_eolqem241z66flxr.css" media="all" />
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline" shiro:hasPermission="policies:create">
+        <a class="layui-btn layui-btn-normal policiesAdd_btn">添加法规</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="policies:delete">
+        <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
+    </div>
+</blockquote>
+<div class="layui-form policies_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50"/>
+            <col/>
+            <col width="15%"/>
+            <col width="20%"/>
+            <col width="15%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th>法规标题</th>
+            <th>是否展示</th>
+            <th>发布时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="policies_content"></tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/policies/policiesList.js}"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>招聘广告列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        关键字：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入公司全称" class="layui-input cname" style="width: 300px"/>
+        </div>
+        <a class="layui-btn search_button"><i class="layui-icon">&#xe615;</i>查询</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn stick_button" style="background-color:#5FB878">重置</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpccompany:check">
+        <a class="layui-btn check_button">审核/驳回</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpccompany:isUp">
+        <a class="layui-btn isUp_button">推荐/还原</a>
+    </div>
+</blockquote>
+<div class="layui-form rental_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50"/>
+            <col width="15%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="5%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th style="text-align:center;">公司名称</th>
+            <th style="text-align:center;">职位名称</th>
+            <th style="text-align:center;">招聘人数</th>
+            <th style="text-align:center;">工作经验</th>
+            <th style="text-align:center;">学历要求</th>
+            <th style="text-align:center;">薪资</th>
+            <th style="text-align:center;">发布时间</th>
+            <th style="text-align:center;">推荐状态</th>
+            <th style="text-align:center;">审核状态</th>
+            <th style="text-align:center;">操作</th>
+        </tr>
+        </thead>
+        <tbody class="rental_content"></tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/company/companyList.js}"></script>
+</body>
+</html>

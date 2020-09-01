@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>房屋信息列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        房间号：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入房号" class="layui-input roomnum" style="width: 100px"/>
+        </div>
+        楼层：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入楼层" class="layui-input floor" style="width: 100px"/>
+        </div>
+        通道：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入通道" class="layui-input passageway" style="width: 100px"/>
+        </div>
+        租金：
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入租金" class="layui-input rent" style="width: 100px"/>
+        </div>
+        -
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入租金" class="layui-input torent" style="width: 100px"/>
+        </div>
+        面积：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入面积" class="layui-input area" style="width: 100px"/>
+        </div>
+        -
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入面积" class="layui-input toarea" style="width: 100px"/>
+        </div>
+        朝向：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入朝向" class="layui-input face" style="width: 100px"/>
+        </div>
+        <a class="layui-btn search_button"><i class="layui-icon">&#xe615;</i>查询</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn stick_button" style="background-color:#5FB878">重置</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpcrental:create">
+        <a class="layui-btn layui-btn-normal add_button">添加房屋</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpcrental:delete">
+        <a class="layui-btn layui-btn-danger delete_button">下架房屋</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpcrental:check">
+        <a class="layui-btn check_button">审核</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpcrental:isUp">
+        <a class="layui-btn isUp_button">推荐</a>
+    </div>
+</blockquote>
+<div class="layui-form rental_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50"/>
+            <col width="10%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="10%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="12%"/>
+            <col width="12%"/>
+            <col width="20%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th style="text-align:center;">封面图</th>
+            <th style="text-align:center;">房间号</th>
+            <th style="text-align:center;">楼层</th>
+            <th style="text-align:center;">通道</th>
+            <th style="text-align:center;">租金</th>
+            <th style="text-align:center;">面积</th>
+            <th style="text-align:center;">朝向</th>
+            <th style="text-align:center;">审核状态</th>
+            <th style="text-align:center;">推荐状态</th>
+            <th style="text-align:center;">发布时间</th>
+            <th style="text-align:center;">修改时间</th>
+            <th style="text-align:center;">操作</th>
+        </tr>
+        </thead>
+        <tbody class="rental_content"></tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/fsservice/rental/tpcRentalList.js}"></script>
+</body>
+</html>

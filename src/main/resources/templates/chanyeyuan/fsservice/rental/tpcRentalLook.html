@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <meta charset="utf-8"/>
+    <title>查看详情</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_eolqem241z66flxr.css" media="all" />
+    <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/chanyeyuan/fsservice/rental/tpcRentalLook.js}"></script>
+</head>
+<body>
+<h1 class="roomnum" style="font-size: 20px;" align="center"></h1>
+<p class="time" align="center"></p><br/><br/>
+<div align="center">
+    <span class="floot"></span>
+    <span class="passageway"></span>
+    <span class="rent"></span>
+    <span class="area"></span>
+    <span class="face"></span>
+</div>
+<hr/>
+<div class="info"></div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <meta charset="utf-8"/>
+    <title>编辑banner</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<style>
+    div{
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+</style>
+<body>
+<blockquote class="layui-elem-quote">
+    <p><span style="color:#1E9FFF;"><span style="color: #da1d20">郑重提示</span>：请填写路径以<span style="color: #da1d20">http://</span>开头，否则无效，请知悉</span></p>
+</blockquote>
+<form class="layui-form" action="">
+<div id="div_img"></div>
+<div class="layui-inline">
+    <div class="layui-input-inline">
+        <label class="layui-form-label">链接地址</label>
+        <input name="addressurl" id="addressurl" lay-verify="url" autocomplete="off" class="layui-input" type="tel" style="width: 300px;"/>
+    </div>
+</div>
+<div class="layui-form-item">
+    <div class="layui-input-block">
+        <button class="layui-btn" lay-submit="" lay-filter="banner_edit">立即提交</button>
+        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+</div>
+
+</form>
+
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/paperbanner/bannerEdit.js}"></script>
+</body>
+</html>

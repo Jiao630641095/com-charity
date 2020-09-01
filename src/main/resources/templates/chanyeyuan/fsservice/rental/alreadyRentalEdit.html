@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>编辑租房记录</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<style>
+    .layui-anim {
+        text-align: center;
+    }
+</style>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1" th:object="${alreadyRental1}">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司名称</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="id" id="id" th:value="*{id}"/>
+            <input type="text" class="layui-input qyname" lay-verify="required" placeholder="请输入公司名称" th:value="*{qyname}"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input name" lay-verify="required" placeholder="请输入姓名" th:value="*{name}"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input phone" lay-verify="required" placeholder="请输入手机号" th:value="*{phone}"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">付款方式</label>
+        <div class="layui-input-inline">
+            <select  name="paytype" lay-verify="required" lay-search="">
+                <option value="">请选择</option>
+                <option value="3" th:if="*{paytype==3}" selected="selected">季度付</option>
+                <option value="6" th:if="*{paytype==6}" selected="selected">半年付</option>
+                <option value="12" th:if="*{paytype==12}" selected="selected">年付</option>
+                <option value="3" th:unless="*{paytype==3}" >季度付</option>
+                <option value="6" th:unless="*{paytype==6}">半年付</option>
+                <option value="12" th:unless="*{paytype==12}">年付</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">房屋编号</label>
+        <div class="layui-input-inline">
+            <select  name="rid" lay-verify="required" lay-search="" id="roomnum">
+                <option value="">请选择</option>
+                <option th:each="model : ${rentals}" th:value="${model.id}" th:text="${model.floor+model.roomnum}" th:selected="${model.id}==*{rid}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">起始时间</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input search_input_time create_time" lay-verify="required" th:value="*{create_time}"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上次付时间</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input search_input_time pay_time" lay-verify="required" th:value="*{pay_time}"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">终止时间</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input search_input_time end_time" lay-verify="required" th:value="*{end_time}"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="edit">修改记录</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/fsservice/rental/alreadyRentalEdit.js}"></script>
+</body>
+</html>

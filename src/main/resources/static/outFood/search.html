@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <!--App自定义的css-->
+    <link rel="stylesheet" type="text/css" href="css/app.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/mui.min.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <div class="mui-input-row mui-search mui-pull-left" style="clear:none;width: 65%;margin-left: 40px;color: #fff;">
+        <input type="search" class="mui-input-clear whiteBg" placeholder="输入要搜索的内容">
+    </div>
+    <a id="search" class="search-btn mui-icon mui-pull-right"><span>搜索</span></a>
+</header>
+<div class="mui-content wrapper">
+    <ul class="mui-table-view" id="commodityList" style="margin: 0">
+        <li class="mui-table-view-cell mui-media ">
+            <a>
+                <img class="mui-media-object mui-pull-left" src="images/chaocai_01.jpg">
+                <div class="mui-media-body">
+                    <div style="margin:10px 0;">爆炒香辣鱿鱼丝</div>
+                    <div>￥12.00/份</div>
+                </div>
+                <img src="images/add_icon.jpg" class="add-icon" style="width: 25px;" />
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!--购物车-->
+<div id="popover" class="mui-popover">
+    <div class="mui-text-center popover-title">
+        已选
+        <i class="mui-icon mui-icon-close mui-pull-right" style="font-size: 30px;line-height: 40px;"></i>
+    </div>
+    <div class="popover-body">
+        <div class="popover-item mui-text-center mui-clearfix">
+            <div class="mui-pull-left mui-col-xs-4">报废和的时间</div>
+            <div class="mui-pull-left mui-col-xs-2">￥12.00</div>
+            <div class="mui-pull-left mui-col-xs-2"><i class="foodNum">1</i>份</div>
+            <div class="mui-pull-left mui-col-xs-2 reduceNum mui-icon mui-icon-minus"></div>
+            <div class="mui-pull-right mui-col-xs-2 sumNum mui-icon mui-icon-plus"></div>
+        </div>
+        <div class="popover-item mui-text-center mui-clearfix">
+            <div class="mui-pull-left mui-col-xs-4">报废和的时间</div>
+            <div class="mui-pull-left mui-col-xs-2">￥12.00</div>
+            <div class="mui-pull-left mui-col-xs-2"><i class="foodNum">1</i>份</div>
+            <div class="mui-pull-left mui-col-xs-2 reduceNum mui-icon mui-icon-minus"></div>
+            <div class="mui-pull-right mui-col-xs-2 sumNum mui-icon mui-icon-plus"></div>
+        </div>
+        <div class="popover-item mui-text-center mui-clearfix">
+            <div class="mui-pull-left mui-col-xs-4 red-c">合计</div>
+            <div class="mui-pull-left mui-col-xs-2 red-c" id="cartAmt">￥24.00</div>
+            <div class="mui-pull-left mui-col-xs-2 red-c"><i class="foodNum" id="cartSum">2</i>份</div>
+        </div>
+    </div>
+    <div class="popover-footer">
+        <button class="mui-text-center mui-pull-left mui-col-xs-6 empty" id="empty">清空</button>
+        <button class="mui-text-center mui-pull-left mui-col-xs-6 settlement">结算</button>
+    </div>
+    <!--订餐提示-->
+    <div id="popoverTime" class="mui-popover">
+        <div class="mui-text-center popover-title">
+            订餐时间
+            <i class="mui-icon mui-icon-close mui-pull-right" style="font-size: 30px;line-height: 40px;"></i>
+        </div>
+        <p>请您于上午8:00-10:30订餐！</p>
+    </div>
+</div>
+<div class="shopCar" id="car">
+    <img src="images/shopCar.png" />
+    <span class="circle"></span>
+</div>
+</body>
+<script src="js/cartjs.js"></script>
+<script>
+    var commodityListMsg;
+    var name = "";
+    $("#commodityList").empty();
+    $("#search").click(function () {
+        name = $(".whiteBg").val();
+        getCommodityList();
+    })
+    //菜单列表
+    function getCommodityList() {
+        $.getJSON("/canteen/commodityList.action",{name:name},function (data) {
+            $("#commodityList").empty();
+            if (data.code == 4000){
+                if(data.list != null){
+                    var list = data.list;
+                    var div = "";
+                    $.each(list, function (index, val) {
+                        div +=['<li class="mui-table-view-cell mui-media mui-disabled">',
+                            '	<a>',
+                            '	<img class="mui-media-object mui-pull-left" src="'+val.picture+'">',
+                            '	<div class="mui-media-body">',
+                            '	<div style="margin:10px 0;">'+val.name+'</div>',
+                            '	<div>￥'+val.price+'/份</div>',
+                            '	</div>',
+                            '	</a>',
+                            '	<img src="images/add_icon.jpg" class="add-icon" atte="'+val.id+'" style="width: 25px;cursor: pointer;" />',
+                            '</li>'].join("");;
+                    });
+                    $("#commodityList").html(div);
+                }
+            }
+        })
+    }
+
+    $.getJSON("/canteen/commodityList.action",function (data) {
+            if (data.code == 4000){
+                if(data.list != null) {
+                    var list = data.list;
+                    commodityListMsg = data.list;
+                    getCartList()
+                }
+            }
+        })
+
+
+    // 打开购物车
+    document.getElementById("car").addEventListener("tap", function() {
+        //调用隐藏/显示弹出层
+        mui("#popover").popover('show');
+    })
+
+
+    //结算
+    $('.settlement').click(function(){
+        var html = $(".popover-body").html();
+        if (html!=null && html!="")
+        location.href = "sumitOrder.html";
+    });
+
+
+    $('.empty').click(function(){
+        $.getJSON("/canteen/emptyCart.action",function () {
+            /*mui('#popover').popover('hide');
+            $('.popover-body').empty();*/
+            getCartList();
+            $(".circle").html("0")
+            $(".circle").hide();
+        })
+    });
+
+
+    $('#popover .mui-icon-close').click(function(){
+        mui('#popover').popover('hide');
+    });
+    $('#popoverTime .mui-icon-close').click(function(){
+        mui('#popoverTime').popover('hide');
+    });
+
+</script>
+</html>

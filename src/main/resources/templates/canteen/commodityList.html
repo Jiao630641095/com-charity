@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>订单列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+
+        <blockquote class="layui-form-item layui-elem-quote news_search">
+            <form class="layui-form " lay-filter="layform">
+            <div class="layui-inline">
+                <label class="layui-form-label">菜品名称：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" autocomplete="off" class="layui-input"/>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">菜品价格：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="price" autocomplete="off" class="layui-input"/>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button id="btnSearch" class="layui-btn" lay-submit="" lay-filter="Search"><i class="layui-icon layui-btn-icon"></i>查询</button>
+            </div>
+            </form>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-normal" onclick="commodityChange(-1)">添加菜品</button>
+            </div>
+        </blockquote>
+
+
+
+    <table id="orderList" lay-filter="test"></table>
+        <script type="text/html" id="barDemo">
+            <a  class="layui-table-link" lay-event="update" checked="">修改</a>
+            <a  class="layui-table-link" lay-event="delete">删除</a>
+            <a  class="layui-table-link" lay-event="details">订单详情</a>
+        </script>
+        <script type="text/html" id="type">
+            {{#  if(d.type ==1 ){ }}
+            今日小炒
+            {{#  } else if(d.type ==2 ){ }}
+            套餐
+            {{#  } }}
+        </script>
+        <script type="text/html" id="status">
+            {{#  if(d.status ==1 ){ }}
+            <input type="checkbox" name="status" value="{{d.id}}"  checked="checked"  lay-skin="switch" lay-text="是|否" lay-filter="changeStatus" />
+            {{#  } else if(d.status ==0 ){ }}
+            <input type="checkbox" name="status" value="{{d.id}}"  lay-skin="switch" lay-text="是|否" lay-filter="changeStatus" />
+            {{#  } }}
+        </script>
+        <script type="text/html" id="picture">
+            <img src="{{ d.picture }}" />
+        </script>
+
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/datimeFormart.js}"></script>
+<script>
+
+    var depotIds = [];
+    var orderState = null;
+    var startTime = null;
+    var endTime = null;
+    var tableIns = null;
+    layui.use(['table', 'layer','form', 'laydate'], function(){
+
+        var form = layui.form
+                ,layer = layui.layer
+                ,table = layui.table
+                ,laydate = layui.laydate;
+
+        $ = layui.$
+
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+        //第一个实例
+        function renderTable(where){
+            tableIns =  table.render({
+                elem: '#orderList'
+                ,url: '/canteen/getCommodityList'+where
+                ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                    layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                    //,curr: 5 //设定初始在第 5 页
+                    ,groups: 5 //只显示 1 个连续页码
+                    ,limit:10
+                    ,page:1
+                    ,first: false //不显示首页
+                    ,last: false //不显示尾页
+                }
+                ,cols: [[ //表头
+                    {field: 'id', title: '商品名称', width:160, sort: true, fixed: 'left'}
+                    ,{field: 'name', title: '菜品名称', width:160}
+                    ,{field: 'picture', title: '菜品配图', width:160,templet:'#picture'}
+                    ,{field: 'price', title: '菜品价格', width:160}
+                    ,{field: 'boxFee', title: '餐盒费', width:160}
+                    ,{field: 'type', title: '菜品类型', width:160,templet:'#type'}
+                    ,{field: 'status', title: '展示状态', width:160,templet:'#status'}
+                    ,{field: 'description', title: '菜品备注', width:160}
+                    ,{field: 'orderState',title:'操作',fixed: 'right', align:'center', toolbar: '#barDemo', width:150}
+                ]]
+            })
+        }
+
+        var where = '';
+        renderTable(where);
+
+        form.on('submit(Search)', function (data) {
+            /*<![CDATA[*/
+            var where = '?1=1';
+            where = where + '&name=' +data.field.name;
+            where = where + '&price=' +data.field.price;
+            /*  ]]>*/
+            renderTable(where)
+            return false;
+        });
+
+        //监听性别操作
+        form.on('switch(changeStatus)', function(obj){
+            var status = 0;
+            if (obj.elem.checked){
+                status =1;
+            }
+            $.post(
+                "/canteen/changeCommodity",
+                {id:this.value,status:status},
+                function (data) {
+                    layer.tips("展示状态修改为" + status == 1?"展示":"隐藏");
+                }, "json"
+            );
+        });
+
+        //监听工具条
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            var id = data.id;
+            var orderState = Number(data.orderState) + 1;
+            if(obj.event === 'update'){
+                commodityChange(id)
+            } else if(obj.event === 'delete'){
+                $.post(
+                    "/canteen/deleteCommodity",
+                    {id:id},
+                    function (data) {
+                        top.layer.msg("删除成功！");
+                        location.reload();
+                    }, "json"
+                );
+            } else if(obj.event === 'add'){
+                commodityChange(id)
+            }else if(obj.event === 'details'){
+                showOrderDetails(id);
+            }
+        });
+            });
+
+    function showOrderDetails(id) {
+        layer.open({
+            type: 2,
+            title: "订单详情",
+            area: ['1080px', '750px'],
+            content: ['toShowOrderDetailsByOrderId/' + id, 'no'],
+        });
+    }
+
+    function commodityChange(id) {
+        layer.open({
+            type: 2,
+            title: "订单详情",
+            area: ['1080px', '750px'],
+            content: ['toShowcommodityChange/' + id, 'no'],
+        });
+    }
+
+
+</script>
+</body>
+</html>

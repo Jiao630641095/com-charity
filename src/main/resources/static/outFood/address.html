@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>填写地址</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">填写地址</h1>
+			<a class="mui-icon mui-pull-right" id="save"><span>保存</span></a>
+		</header>
+		<div class="mui-content">
+			<div class="message">
+				<!--姓名-->
+				<div class="user-name">
+					<label>填写姓名</label>
+					<input type="text" name="username"/>
+					<input type="text" name="addressId" hidden/>
+				</div>
+				<!--电话-->
+				<div class="user-phone">
+					<label>填写电话</label>
+					<input type="text" name="phone"/>
+				</div>
+				<!--地址-->
+				<div class="user-add">
+					<label style="vertical-align:36px;">填写地址</label>
+					<input name="address"></input>
+				</div>
+			</div>
+		</div>
+	</body>
+
+<script src="js/datimeFormart.js"></script>
+<script>
+
+    $.getJSON("/canteen/getDeliveryInfoByWX.action",function (data) {
+        if (data.code == 4000){
+			$("input[name='username']").val(data.deliveryInfo.username)
+			$("input[name='address']").val(data.deliveryInfo.address)
+			$("input[name='phone']").val(data.deliveryInfo.phone)
+			$("input[name='addressId']").val(data.deliveryInfo.id)
+        }
+    })
+
+    var description = getUrlParms("description");
+    description = decodeURI(description);
+
+    $("#save").click(function () {
+        var username = $("input[name='username']").val();
+        var address = $("input[name='address']").val();
+        var phone = $("input[name='phone']").val();
+        var id = $("input[name='addressId']").val();
+        var usernameReg =  /^[\u4E00-\u9FA5A-Za-z0-9]{1,8}$/;;
+        var addressReg = /^[\u4E00-\u9FA5A-Za-z0-9]{1,28}$/;
+        var phoneReg = /^[0-9]{11}$/;
+        if(username.match(usernameReg)==null){
+            alert("用户名不为空，且最多十位，不得有特殊字符");
+            return false;
+        }
+        if(address.match(addressReg)==null){
+            alert("地址不为空，且最多二十八位，不得有特殊字符");
+            return false;
+        }
+        if(phone.match(phoneReg)==null){
+            alert("手机号格式不正确");
+            return	false;
+        }
+        var info = {
+            username:username,
+            address:address,
+            phone:phone,
+            id:id
+        }
+        $.getJSON("/canteen/updateDeliveryInfoByWX.action",info,function (data) {
+            if (data.code == 4000){
+                alert("保存成功");
+                location.href = "sumitOrder.html?description="+description;
+            }else {
+                alert("保存失败");
+            }
+        })
+    })
+
+</script>
+</html>

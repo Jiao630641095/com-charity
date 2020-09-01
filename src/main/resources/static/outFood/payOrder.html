@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>支付订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/datimeFormart.js"></script>
+		<style>
+			.mui-table-view:before{
+				height: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">支付订单</h1>
+		</header>
+		<div class="mui-content">
+			<div class="white-bg mui-text-center" style="padding: 20px;">
+				<div style="margin-top: 10px;"><strong id="amt">总价：￥24.00</strong></div>
+			</div>
+			<div class="white-bg mui-text-center" style="padding: 20px;margin-top: 150px;">
+				<img src="images/wx_icon.jpg" style="width: 40px;vertical-align:-10px;" />&nbsp;
+				<span>微信支付</span>
+			</div>
+			<div class="mui-bar mui-bar-tab mui-text-center">
+				<button class="mui-pull-right" style="width: 100%;" id="finish">微信支付</button>
+			</div>
+		</div>
+	</body>
+<script>
+    mui.back = function back(){
+        location.href = "index.html";
+    }
+
+
+    var orderId = getUrlParms("orderId");
+    if (orderId != null) {
+        $.getJSON("/canteen/getOrderDetailsByOrderId.action",{orderId:orderId},function (data) {
+			if (data.code == 4000){
+			    $("#amt").text("总价：￥"+data.order.amt);
+			}
+        })
+    }
+
+
+
+    function wxpay() {
+        $.getJSON("/canteen/getWxpay.action",{"id":orderId},function (data) {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', data.wxarg,
+                function (res) {
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {
+                        $.getJSON("/canteen/checkPay.action",{"id":orderId},function (data) {
+                            if (data) {
+                                location.href = "payFinish.html?orderId="+orderId;
+                            }
+                        })
+                    }
+                });
+        })
+    }
+
+    $("#finish").click(function () {
+        wxpay()
+    })
+	
+</script>
+</html>

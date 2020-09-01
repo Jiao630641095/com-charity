@@ -1,0 +1,312 @@
+body,.mui-content{
+    background-color:#f5f5f5;
+    font-size: 16px;
+}
+
+i{
+    font-style: normal;
+}
+
+.white-bg{
+    background: #fff;
+}
+
+.red-c{
+    color: #f63616;
+}
+
+.green-c{
+    color: #2b9b45;
+}
+
+.gray-c{
+    color: #7e7e7e;
+}
+
+.mui-bar-nav{
+    background: #db8455;
+}
+
+.mui-bar-tab{
+    box-shadow:0 0 1px rgba(0,0,0,0)
+}
+
+.mui-title,.mui-bar-nav a{
+    color: #fff;
+}
+
+.mui-bar-nav a span{
+    font-size: 14px;
+}
+
+.mui-table-view:after{
+    height: 0;
+}
+
+.mui-bar-tab .mui-tab-item.mui-active,.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+    color: #dc8658;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar{
+    background:url(../images/line.jpg) no-repeat;
+}
+
+.mui-slider-progress-bar{
+    /*width: 120px;*/
+    margin-left: 9%;
+}
+
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+    border-top:1px solid #f5f5f5 ;
+}
+
+.mui-slider-indicator.mui-segmented-control{
+    background: #fff;
+}
+
+#tabbar-with-chat .mui-table-view{
+    background: none;
+}
+
+.mui-table-view-cell:after{
+    background-color: #F5F5F5;
+}
+
+.mui-table-view .mui-media-object{
+    max-width: 80px;
+    height: 80px;
+}
+
+.add-icon{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -12.5px;
+}
+
+/*订单*/
+.card{
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.card-title{
+    background: #e3e3e3;
+    line-height: 35px;
+}
+
+.card-body{
+    padding: 20px;
+}
+
+.card-item{
+    margin-bottom: 20px;
+}
+
+.card-date{
+    font-size: 14px;
+    color: #7e7e7e;
+}
+
+.card-picSum{
+    color: #f63616;
+}
+
+/*个人*/
+.message input,.message textarea{
+    width: 70%;
+    border: 0;
+    margin: 0;
+}
+
+
+.user-name,.user-phone,.user-add{
+    margin: 10px 0;
+    padding: 10px 0 10px 30px;
+    background: #fff;
+}
+
+/*提交订单*/
+.sumitOrder .mui-table-view-cell i{
+    color: #f63616;
+}
+
+.sumitOrder a.date{
+    color: #7e7e7e;
+    border-top:1px solid #f0f0f0 ;
+}
+
+.list-sum{
+    padding: 10px;
+    background: #fff;
+    margin: 2px 0 10px;
+}
+
+.mui-bar button{
+    height: 50px;
+    border: 0;
+    background: #ee6d58;
+    color: #fff;
+    border-radius: 0;
+    padding: 6px 25px;
+}
+
+.mui-bar i{
+    line-height: 50px;
+    color: #f63616;
+}
+
+.card-item span{
+    font-size:12px;
+}
+
+.choosePay{
+    background: #fff;
+    padding: 10px 0;
+    margin-bottom:2px;
+}
+
+.cancel{
+    color: #000;
+    border-right: 1px solid #d8d8d8;
+}
+
+
+.inputBox{
+    border-radius: 30px;
+    background: rgba(255,255,255,0.3);
+    padding: 0 0 0 30px;
+    color: #fff;
+    margin-bottom:10px ;
+}
+
+.inputBox input{
+    background: rgba(0,0,0,0);
+    border: 0;
+    width: 70%;
+    margin: 0;
+}
+
+.keep{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 0;
+    background: #e08d60;
+    color: #fff;
+}
+
+.shopCar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 80px;
+    right: 60px;
+    z-index: 5;
+}
+
+.shopCar img{
+    width: 100%;
+}
+
+.circle{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #f63616;
+    text-align: center;
+    color: #fff;
+    line-height: 25px;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: -8px;
+}
+
+#popover{
+    width: 300px;
+    min-height: 380px;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: -190px;
+    border-radius: 0;
+    font-size:12px ;
+}
+
+#popoverTime{
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: -150px;
+    border-radius: 0;
+    font-size:12px ;
+    line-height: 100px;
+    text-align: center;
+}
+
+#popover .popover-body .mui-scroll-wrapper{
+    height: 250px;
+    position: relative;
+    margin: 0;
+}
+
+.popover-title{
+    line-height: 40px;
+    padding: 0px 10px;
+    background: #f1f1f1;
+}
+
+.popover-body{
+    /*padding-bottom: 45px;*/
+}
+
+.popover-item{
+    padding: 5px 0;
+    line-height: 35px;
+}
+
+#popover .reduceNum,#popover .sumNum{
+    font-size:30px;
+}
+
+.popover-footer{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.popover-footer button{
+    border: 0;
+    line-height: 30px;
+    border-radius: 0;
+}
+
+.empty{
+    background: #f1f1f1;
+}
+
+.settlement{
+    background: #d98050;
+    color: #fff;
+}
+
+input[type=search]{
+    background-color: rgba(0,0,0,0);
+    border-bottom:1px solid #fff;
+    border-radius:0;
+}
+
+.mui-search .mui-placeholder .mui-icon,.mui-input-row .mui-input-clear~.mui-icon-clear{
+    color: #fff;
+}
+
+.mui-search .mui-placeholder{
+    color:#a45e37;
+}

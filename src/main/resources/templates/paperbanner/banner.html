@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8"/>
+    <title>banner列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_eolqem241z66flxr.css" media="all" />
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline" shiro:hasPermission="banner:create">
+        <a class="layui-btn layui-btn-normal bannerAdd_btn">添加banner</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="banner:delete">
+        <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
+    </div>
+</blockquote>
+<blockquote class="layui-elem-quote">
+    <p><span style="color:#1E9FFF;"><span style="color: #da1d20">郑重提示</span>：请填写路径后再展示，否则所有操作无效，请知悉</span></p>
+</blockquote>
+<div class="layui-form banner_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="30"/>
+            <col/>
+            <col width="30%"/>
+            <!--<col width="9%">-->
+            <!--<col width="9%">-->
+            <col width="15%"/>
+            <col width="20%"/>
+            <col width="15%"/>
+        </colgroup>
+        <thead>
+        <tr>
+           <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th style="text-align:left;">Banner</th>
+            <th>链接地址</th>
+            <!--<th>审核状态</th>-->
+            <!--<th>浏览权限</th>-->
+            <th>是否展示</th>
+            <th>上传时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="banner_content"></tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/paperbanner/banner.js}"></script>
+</body>
+</html>

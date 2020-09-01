@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>编辑房屋信息</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<style>
+    .layui-anim {
+        text-align: center;
+    }
+</style>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1">
+    <div class="layui-form-item">
+        <label class="layui-form-label">房屋门牌号</label><input type="hidden" name="id" id="id"/>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input roomnum" lay-verify="required" placeholder="请输入门牌号"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">楼层</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <select id="floor" name="floor" lay-verify="required" lay-search="">
+                        <option value="一层">一层</option>
+                        <option value="二层">二层</option>
+                        <option value="三层">三层</option>
+                        <option value="四层">四层</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">通道</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <select id="passageway" name="passageway" lay-verify="required" lay-search="">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="-">-</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">朝向</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <select id="face" name="face" lay-verify="required" lay-search="">
+                        <option value="朝东">朝东</option>
+                        <option value="朝西">朝西</option>
+                        <option value="朝南">朝南</option>
+                        <option value="朝北">朝北</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">封面图</label>
+        <!--<div class="layui-upload-form">-->
+            <!--<div class="layui-upload-list">-->
+                <!--<img class="layui-upload-img" id="imgUrl" style="width: 104.47px;height: 104.74px"/>-->
+                <!--<p id="demoText"></p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-upload" style="padding-left: 230px;margin-top: -60px;margin-bottom: 20px">-->
+            <!--<button type="button" class="layui-btn" id="img"><i class="layui-icon"></i>选择封面图</button>-->
+        <!--</div>-->
+
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="img"><i class="layui-icon"></i>选择封面图(限5张)</button>
+            <button class="layui-btn" type="button" id="reset">重新上传</button>
+        </div>
+        <div class="layui-upload-form">
+            <div class="layui-upload-list" id="demo2" style="padding-left: 120px;"></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">租金</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input rent" lay-verify="required" placeholder="请输入门租金"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">面积</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input area" lay-verify="required" placeholder="请输入门面积"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">详细描述</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="info" lay-verify="info" id="news_content"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="editTpcRental">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/fsservice/rental/tpcRentalEdit.js}"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>添加新闻</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<style>
+    .layui-anim {
+        text-align: center;
+    }
+</style>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1" th:object="${model}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">新闻标题</label>
+        <div class="layui-input-block">
+            <input type="hidden" class="layui-input id" th:value="*{id}"/>
+            <input type="text" class="layui-input title" lay-verify="required" placeholder="请输入新闻标题"
+                   th:value="*{title}"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">自定义属性</label>
+            <div class="layui-input-block">
+                <input type="checkbox" th:name="show" th:value="1" th:if="*{isShow == '1'}" checked="checked"
+                       title="展示"/>
+                <input type="checkbox" th:name="show" th:value="1" th:unless="*{isShow == '1'}" title="展示"/>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">文章作者</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input newsAuthor" placeholder="请输入文章作者" th:value="*{newsAuthor}"/>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">新闻配图</label>
+        <div class="layui-upload-form">
+            <div class="layui-upload-list">
+                <img class="layui-upload-img" th:src="*{imgUrl}" id="imgUrl" style="width: 104.47px;height: 104.74px"/>
+                <p id="demoText"></p>
+            </div>
+        </div>
+        <div class="layui-upload" style="padding-left: 230px;margin-top: -60px;margin-bottom: 20px">
+            <button type="button" class="layui-btn" id="img"><i class="layui-icon"></i>选择新闻配图</button>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">网站选择</label>
+            <div class="layui-input-inline">
+                <select name="modules" lay-verify="required" lay-search="" disabled="disabled">
+                    <option>全部网站</option>
+                    <option th:each="model : ${websites}" th:value="${model.url}" th:text="${model.name}"
+                            th:selected="${model.url}==*{websiteUrl}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">新闻类型</label>
+            <div class="layui-input-inline">
+                <select name="tid" lay-verify="required" lay-search="">
+                    <option th:each="model : ${typeList}" th:value="${model.id}" th:text="${model.name}" th:selected="${model.id}==*{tid}"></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容摘要</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容摘要" name="digest" id="digest" class="layui-textarea"
+                      th:text="*{digest}"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">文章内容</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="content" lay-verify="content" id="news_content"
+                      th:text="*{content}"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="save_button">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/news/newsSave.js}"></script>
+</body>
+</html>

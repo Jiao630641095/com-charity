@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/common/common}">
+<head>
+	<meta charset="utf-8"/>
+	<title>编辑新闻</title>
+	<link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_eolqem241z66flxr.css" media="all" />
+	<link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+	<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/chanyeyuan/fspolicies/tpcPoliciesEdit.js}"></script>
+</head>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1">
+	<div class="layui-form-item">
+		<label class="layui-form-label">政策标题</label><input type="hidden" name="id" id="id"/>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input title" lay-verify="required" placeholder="请输入政策标题"/>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">政策发布人</label>
+		<div class="layui-input-inline">
+			<input type="text" class="layui-input author" lay-verify="required" placeholder="请输入政策发布人"/>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">政策内容</label>
+		<div class="layui-input-block">
+			<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content_edit"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<button class="layui-btn" lay-submit="" lay-filter="editTpcPolicies">提交审核</button>
+			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		</div>
+	</div>
+</form>
+</body>
+</html>

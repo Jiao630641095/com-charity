@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<style>
+			html,body{
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body style="background: url(images/index_bg.jpg) no-repeat;background-size:100% 100%;padding: 0 40px;">
+		<div style="padding: 210px 0 40px;">
+			<div class="inputBox">
+				<label>姓名</label>
+				<input type="text" name="username"/>
+			</div>
+			<div class="inputBox">
+				<label>电话</label>
+				<input type="text" name="phone"/>
+			</div>
+			<div class="inputBox">
+				<label>配送地址</label>
+				<input type="text" name="address"/>
+			</div>
+		</div>
+		<div class="mui-text-center">
+			<button class="keep">保存</button>
+		</div>
+		<div class="mui-text-right" style="margin-top: 40px;">
+			<button class="skip">跳过</button>
+		</div>
+	</body>
+	<script src="js/datimeFormart.js"></script>
+<script>
+
+    /**
+	 * 获取微信ID
+     */
+    var code = getUrlParms("code");
+    $.getJSON("/norder/openid.action",{code:code},function (data) {
+        if(data.openid){
+            $.getJSON("/canteen/getDeliveryInfoByWX.action",function (data) {
+                if (data.code == 4000){
+                    location.href = "index.html"
+                }
+            })
+        }
+    })
+
+
+
+	$(".skip").click(function () {
+        location.href = "index.html"
+	})
+
+	$(".keep").click(function () {
+		var username = $("input[name='username']").val();
+		var address = $("input[name='address']").val();
+		var phone = $("input[name='phone']").val();
+		var usernameReg =  /^[\u4E00-\u9FA5A-Za-z0-9]{1,8}$/;;
+		var addressReg = /^[\u4E00-\u9FA5A-Za-z0-9]{1,28}$/;
+		var phoneReg = /^[0-9]{11}$/;
+		if(username.match(usernameReg)==null){
+			alert("用户名不为空，且最多十位，不得有特殊字符");
+			return false;
+		}
+        if(address.match(addressReg)==null){
+            alert("地址不为空，且最多二十八位，不得有特殊字符");
+            return false;
+        }
+        if(phone.match(phoneReg)==null){
+            alert("手机号格式不正确");
+            return	false;
+        }
+		var info = {
+            username:username,
+            address:address,
+            phone:phone,
+		}
+		$.getJSON("/canteen/updateDeliveryInfoByWX.action",info,function (data) {
+			if (data.code == 4000){
+			    alert("保存成功");
+			    location.href = "index.html"
+			}else {
+                alert("保存失败");
+			}
+        })
+    })
+
+
+</script>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>编辑菜品</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<style>
+    .layui-anim {
+        text-align: center;
+    }
+</style>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1">
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜品名称</label><input type="hidden" name="id" id="id"/>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input name" lay-verify="required" placeholder="请输入菜品名称"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">配 图</label>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="img"><i class="layui-icon"></i>选择配图</button>
+        </div>
+        <div class="layui-upload-form">
+            <img class="layui-upload-img" id="imgUrl" style="width: 104.47px;height: 104.74px;padding-left: 120px;"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜品单价</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input price" placeholder="请输入菜品单价"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">单位</label>
+        <div class="layui-input-inline">
+            <select id="unit" name="unit" value="盘">
+                <option value="份">份</option>
+                <option selected="selected" value="碗">碗</option>
+                <option value="斤">斤</option>
+                <option value="盘">盘</option>
+                <option value="串">串</option>
+                <option value="两">两</option>
+                <option value="个">个</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="editTpcfood">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/todayfood/todayfoodEdit.js}"></script>
+</body>
+</html>

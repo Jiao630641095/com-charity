@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<meta charset="utf-8"/>
+	<title>爱心网络列表</title>
+	<link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_eolqem241z66flxr.css" media="all" />
+	<link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote news_search">
+		<!--<div class="layui-inline">-->
+		    <!--<div class="layui-input-inline">-->
+		    	<!--<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">-->
+		    <!--</div>-->
+		    <!--<a class="layui-btn search_btn">查询</a>-->
+		<!--</div>-->
+		<div class="layui-inline" >
+			<a class="layui-btn layui-btn-normal newsAdd_btn">添加二维码</a>
+		</div>
+		<!--<div class="layui-inline">-->
+			<!--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>-->
+		<!--</div>-->
+		<!--<div class="layui-inline">-->
+			<!--<a class="layui-btn audit_btn">审核文章</a>-->
+		<!--</div>-->
+<!--		<div class="layui-inline" >
+			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
+		</div>-->
+		<!--<div class="layui-inline">-->
+			<!--<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>-->
+		<!--</div>-->
+	</blockquote>
+	<table id="orderList" lay-filter="test"></table>
+
+	<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/network/networkList.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/datimeFormart.js}"></script>
+
+	<style>
+	.layui-form-select .layui-input{
+		text-align: center;
+	}
+</style>
+
+	<script type="text/html" id="status">
+		{{#  if(d.status ==1 ){ }}
+		跳转页面
+		{{#  } else if(d.status ==0 ){ }}
+		显示二维码
+		{{#  } }}
+	</script>
+	<script type="text/html" id="createTime">
+		{{# if(!(d.createTime)){ }}
+		{{# }else{ }}
+		{{getLocalTime(d.createTime)}}
+		{{# }}}
+	</script>
+	<script type="text/html" id="image">
+		{{# if(!(d.image)){ }}
+		{{# }else{ }}
+			<img src="{{d.image}}"/>
+		{{# }}}
+	</script>
+	<script type="text/html" id="barDemo">
+		<a  class="layui-table-link" lay-event="update" checked="">修改</a>
+		<a  class="layui-table-link" lay-event="delete">删除</a>
+		<a  class="layui-table-link" lay-event="download">下载二维码</a>
+	</script>
+</body>
+</html>

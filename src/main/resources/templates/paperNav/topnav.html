@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>项目列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/grid.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/nav.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline" shiro:hasPermission="topNav:create">
+        <a class="layui-btn"  lay-filter="add">添加导航</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="topNav:create">
+        <a class="layui-btn" lay-filter="addChild">添加子导航</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="topNav:update">
+        <a class="layui-btn " lay-filter="edit">编辑导航</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="topNav:delete">
+        <a class="layui-btn layui-btn-danger "  lay-filter="delete">删除导航</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn " lay-filter="endEdit">保存</a>
+    </div>
+</blockquote>
+<blockquote class="layui-elem-quote">
+    <p><span style="color:#1E9FFF;"><span style="color: #da1d20">郑重提示</span>：请<span style="color: #da1d20">单行</span>操作完成后点击保存，否则所有操作无效，请知悉</span></p></blockquote>
+<div id="demo" class="grid" >
+</div>
+
+<script id="view" type="text/html">
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th><b>导航结构</b></th>
+            <th><b>跳转路径</b></th>
+            <th><b>编号</b></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{# layui.each(d.rows,function(index,r){ }}
+        <tr>
+            {{# if(d.op=='edit'){ }}
+            <td class="edit"><input type="text" value="{{r.title}}" name="title" /></td>
+            <td class="edit"><input type="text" value="{{r.url}}" name="url" /></td>
+            <td class="edit"><input type="text" readonly= "true" value="{{r.id}}" name="id" /></td>
+            {{# }else{ }}
+            <td><b>{{r.title}}</b></td>
+            <td><b>{{r.url}}</b></td>
+            <td><b>{{r.id}}</b></td>
+            {{# } }}
+        </tr>
+        {{# }); }}
+        </tbody>
+    </table>
+</script>
+
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/paperNav/topnav.js}"></script>
+</body>
+</html>

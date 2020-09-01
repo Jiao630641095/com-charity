@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/common/common}">
+<head>
+	<meta charset="utf-8"/>
+	<title>编辑政策法规</title>
+	<link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_eolqem241z66flxr.css" media="all" />
+	<link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+	<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/policies/policiesEdit.js}"></script>
+</head>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1">
+	<div class="layui-form-item">
+		<label class="layui-form-label">法规标题</label><input type="hidden" name="policiesid" id="policiesid"/>
+		<div class="layui-input-block">
+			<input type="text" class="layui-input title" lay-verify="required" placeholder="请输入法规标题"/>
+		</div>
+	</div>
+	<!--<div class="layui-form-item">-->
+		<!--<div class="layui-inline">-->
+			<!--<label class="layui-form-label">自定义属性</label>-->
+			<!--<div class="layui-input-block">-->
+				<!--<input type="checkbox" name="show" class="layui-input isShow" title="展示" value="1">-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="layui-inline">-->
+			<!--<label class="layui-form-label">文章作者</label>-->
+			<!--<div class="layui-input-inline">-->
+				<!--<input type="text" class="layui-input newsAuthor" lay-verify="required" placeholder="请输入文章作者">-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--&lt;!&ndash;<div class="layui-inline">		&ndash;&gt;-->
+		<!--&lt;!&ndash;<label class="layui-form-label">发布时间</label>&ndash;&gt;-->
+		<!--&lt;!&ndash;<div class="layui-input-inline">&ndash;&gt;-->
+		<!--&lt;!&ndash;<input type="text" class="layui-input newsTime" lay-verify="date" onclick="layui.laydate({elem:this})">&ndash;&gt;-->
+		<!--&lt;!&ndash;</div>&ndash;&gt;-->
+		<!--&lt;!&ndash;</div>&ndash;&gt;-->
+	<!--</div>-->
+	<!--<div class="layui-upload" style="padding-left: 600px;margin-top: -60px;margin-bottom: 20px">-->
+		<!--<button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传新闻配图</button>-->
+	<!--</div>-->
+	<!--<div class="layui-form-item">-->
+		<!--<label class="layui-form-label">联动选择框</label>-->
+		<!--<div class="layui-input-inline">-->
+			<!--<select name="quiznews1"  lay-filter="navnew1" lay-verify="required">-->
+			<!--</select>-->
+		<!--</div>-->
+		<!--<div class="layui-input-inline" lay-filter="navnew2" lay-verify="required">-->
+			<!--<select name="quiznews2">-->
+			<!--</select>-->
+		<!--</div>-->
+	<!--</div>-->
+	<!--<div class="layui-form-item">-->
+	<!--<label class="layui-form-label">关键字</label>-->
+	<!--<div class="layui-input-block">-->
+	<!--<input type="text" class="layui-input" placeholder="请输入文章关键字">-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--<div class="layui-form-item">-->
+		<!--<label class="layui-form-label">内容摘要</label>-->
+		<!--<div class="layui-input-block">-->
+			<!--<textarea placeholder="请输入内容摘要" name="digest" id="digest" class="layui-textarea"></textarea>-->
+		<!--</div>-->
+	<!--</div>-->
+	<div class="layui-form-item">
+		<label class="layui-form-label">法规内容</label>
+		<div class="layui-input-block">
+			<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="policies_content_edit"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<button class="layui-btn" lay-submit="" lay-filter="editPolicies">立即提交</button>
+			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		</div>
+	</div>
+</form>
+<!--<script>
+	layui.use('upload', function(){
+		var $ = layui.jquery
+				,upload = layui.upload;
+
+		//指定允许上传的文件类型
+		upload.render({
+			elem: '#test3'
+			,url: '/news/newsImage'
+			,accept: 'file' //普通文件
+			,done: function(res){
+				console.log(res)
+			}
+		});
+	});
+</script>-->
+</body>
+</html>

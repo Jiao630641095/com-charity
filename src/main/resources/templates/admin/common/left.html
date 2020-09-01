@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+<div th:fragment="left">
+    <div class="layui-side layui-bg-black"  id="larry-side" style="width: 200px;">
+        <div class="user-photo">
+            <a class="img" title="头像"><img th:src="@{//www.hansn.cn/Public/upload/3bfcbe69c3d1a823ae2edf0c2af644ab.gif}"/></a>
+            <p>您好，<span class="userName" th:text="${user.roleName}"></span>, 欢迎登录</p>
+        </div>
+        <div class="navBar layui-side-scroll" lay-filter="menu">
+            <ul class="layui-nav layui-nav-tree">
+                <li class="layui-nav-item" style="" th:each="model : ${menuList}"
+                    th:if="${model.type} == '0'">
+                    <a href="javascript:void (0)">
+                        <i class="layui-icon" th:if="${#strings.isEmpty(model.icon)}">&#xe616;</i>
+                        <i class="layui-icon" th:unless="${#strings.isEmpty(model.icon)}" th:utext="${model.icon}">
+                            &#xe616;</i>
+                        <cite th:text="${model.name}"></cite>
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child" th:each="child : ${menuList}" th:if="${child.parentId} == ${model.id}">
+                        <dd class="">
+                            <a href="javascript:void (0)" th:attr="data-href=${child.url},data-id=${child.id}">
+                                <i class="layui-icon" th:attr="data-icon=${child.icon},lay-id=${child.id}"></i>
+                                <cite th:text="${child.name}"></cite>
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

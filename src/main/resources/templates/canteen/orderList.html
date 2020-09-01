@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>订单列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+        <blockquote class="layui-form-item layui-elem-quote news_search">
+            <form class="layui-form " lay-filter="layform">
+            <div class="layui-inline">
+                <label class="layui-form-label">订单状态：</label>
+                    <div class="layui-input-block" >
+                        <select name="status" lay-filter="filter">
+                            <option value="">请选择订单状态</option>
+                            <option value="1">已提交，代付款</option>
+                            <option value="2">已付款，待配送</option>
+                            <option value="3">已签收</option>
+                            <option value="-1">已取消</option>
+                        </select>
+                    </div>
+                </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">订单号：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="id" autocomplete="off" class="layui-input"/>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">订餐人：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="userName" autocomplete="off" class="layui-input"/>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">电话：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="phone" autocomplete="off" class="layui-input"/>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">时间段：</label>
+                <div class="layui-input-block">
+                    <div class="layui-inline">
+                        <input type="text" name="startTime" id="date" placeholder="请输入开始时间" autocomplete="off" class="layui-input"/>
+                    </div>
+                    <div class="layui-inline" style="line-height: 35px;">&emsp;-&emsp;</div>
+                    <div class="layui-inline">
+                        <input type="text" name="endTime" id="date1"  placeholder="请输入结束时间" autocomplete="off" class="layui-input"/>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button id="btnSearch" class="layui-btn" lay-submit="" lay-filter="Search"><i class="layui-icon layui-btn-icon"></i>查询</button>
+            </div>
+         </form>
+            <div class="layui-inline">
+                <button class="layui-btn" id="ecxleExport">导出分类</button>
+            </div>
+
+        </blockquote>
+            <table id="orderList" lay-filter="test"></table>
+    <script type="text/html" id="barDemo">
+
+                {{#  if(d.status ==1 ){ }}
+                <a  class="layui-table-link" lay-event="details">订单详情</a>
+                {{#  } else if(d.status ==2 ){ }}
+                <a  class="layui-table-link" lay-event="details">订单详情</a>
+                <a  class="layui-table-link" lay-event="pass">已签收</a>
+                {{#  } else if(d.status ==3 ){ }}
+                <a  class="layui-table-link" lay-event="details">订单详情</a>
+                {{#  } else if(d.status ==-1 ){ }}
+                <a  class="layui-table-link" lay-event="details">订单详情</a>
+                {{#  } }}
+
+        </script>
+
+        <script type="text/html" id="status">
+
+            {{#  if(d.status ==1 ){ }}
+            已提交，代付款
+            {{#  } else if(d.status ==2 ){ }}
+            已付款，待配送
+            {{#  } else if(d.status ==3 ){ }}
+            已签收
+            {{#  } else if(d.status ==-1 ){ }}
+            已取消
+            {{#  } }}
+        </script>
+        <script type="text/html" id="createTime">
+            {{# if(!(d.createTime)){ }}
+            {{# }else{ }}
+            {{getLocalTime(d.createTime)}}
+            {{# }}}
+        </script>
+
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/datimeFormart.js}"></script>
+<script>
+
+    var depotIds = [];
+    var orderState = null;
+    var startTime = null;
+    var endTime = null;
+    var tableIns = null;
+    layui.use(['table', 'layer','form', 'laydate'], function(){
+
+        var form = layui.form
+                ,layer = layui.layer
+                ,table = layui.table
+                ,laydate = layui.laydate;
+
+        $ = layui.$
+
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+        //第一个实例
+        function renderTable(where){
+            tableIns =  table.render({
+                elem: '#orderList'
+                ,url: '/canteen/getOrderList'+where
+                ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                    layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                    //,curr: 5 //设定初始在第 5 页
+                    ,groups: 5 //只显示 1 个连续页码
+                    ,limit:10
+                    ,page:1
+                    ,first: false //不显示首页
+                    ,last: false //不显示尾页
+
+                }
+                ,cols: [[ //表头
+                    {field: 'id', title: '订单号', width:160, sort: true, fixed: 'left'}
+                    ,{field: 'address', title: '配送地址', width:160}
+                    ,{field: 'userName', title: '订单人', width:160}
+                    ,{field: 'phone', title: '订单人联系方式', width:160}
+                    ,{field: 'description', title: '订单备注', width:160}
+                    ,{field: 'amt', title: '总金额', width:160}
+                    ,{field: 'boxFee', title: '餐盒费', width:160}
+                    ,{field: 'cutleryFee', title: '餐具费', width:160}
+                    ,{field: 'transportFee', title: '配送费', width:160}
+                    ,{field: 'status', title: '订单状态',templet:'#status', width:160}
+                    ,{field: 'createTime', title: '创建时间', templet: "#createTime", width:160}
+                    ,{field: 'orderState',title:'操作',fixed: 'right', align:'center', toolbar: '#barDemo', width:150}
+                ]]
+            })
+        }
+
+        var where = '';
+        renderTable(where);
+
+
+        $('#ecxleExport').on('click', function () {
+            location.href = '/canteen/excleExport'+where;
+        });
+
+        form.on('submit(Search)', function (data) {
+            /*<![CDATA[*/
+            where = '?1=1';
+            where = where + '&userName=' +data.field.userName;
+            where = where + '&status=' +data.field.status;
+            where = where + '&phone=' +data.field.phone;
+            where = where + '&startTime=' +data.field.startTime;
+            where = where + '&endTime=' +data.field.endTime;
+            where = where + '&id=' +data.field.id;
+            /*  ]]>*/
+            renderTable(where)
+            return false;
+        });
+
+        //监听工具条
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            var id = data.id;
+            var orderState = Number(data.orderState) + 1;
+            if(obj.event === 'pass'){
+                layer.confirm('确定用户已签收么？', function(index){
+                    $.get("/admin/order/changeOrderState",{"orderType":1,orderState:orderState,id:id},function(data){
+                        if(data.code==4000){
+                            location.reload();
+                        }else {
+                            layer.alert(data.msg);
+                        }
+                    });
+                });
+            } else if(obj.event === 'block'){
+                layer.confirm('确定取消订单么？', function(index){
+                    $.get("/admin/order/changeOrderState",{"orderType":1,orderState:-1,id:id},function(data){
+                        if(data.code==4000){
+                            location.reload();
+                        }else {
+                            layer.alert(data.msg);
+                        }
+                    });
+                });
+            } else if(obj.event === 'details'){
+                showOrderDetails(id);
+            }
+        });
+            });
+
+    function showOrderDetails(id) {
+        layer.open({
+            type: 2,
+            title: "订单详情",
+            area: ['1080px', '750px'],
+            content: ['toShowOrderDetailsByOrderId/' + id, 'no'],
+        });
+    }
+
+
+
+</script>
+</body>
+</html>

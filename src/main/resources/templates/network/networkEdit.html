@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/common/common}">
+<head>
+	<meta charset="utf-8"/>
+	<title>编辑爱心网络</title>
+	<link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_eolqem241z66flxr.css" media="all" />
+	<link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<hr class="layui-bg-green"/>
+	<form class="layui-form" lay-filter="test1" style="width: 800px;">
+		<div class="layui-form-item">
+			<label class="layui-form-label">网络名称</label><input type="hidden" name="id" id="id"/>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input name" lay-verify="required" placeholder="请输入爱心网络名称"/>
+			</div>
+		</div>
+		<div class="layui-upload-form" style="margin-left: 110px">
+			<button type="button" class="layui-btn" id="img">爱心LOGO</button>
+			<div class="layui-upload-list">
+				<img class="layui-upload-img" id="logo" style="width: 104.47px;height: 104.74px"/>
+				<p id="demoText"></p>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">网络链接</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input link" lay-verify="required" placeholder="请输入爱心网络链接"/>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">网络类型</label>
+			<div class="layui-input-block">
+				<select id="type" name="tid" lay-filter="types" lay-verify="required">
+					<option value="">--请选择--</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="addNetWork">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/network/networkEdit.js}"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>菜单列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        关键字：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入菜品名" class="layui-input name"/>
+        </div>
+        <a class="layui-btn search_button"><i class="layui-icon">&#xe615;</i>查询</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn stick_button" style="background-color:#5FB878">重置</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpctodayfood:create">
+        <a class="layui-btn layui-btn-normal add_button">添加菜品</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpctodayfood:delete">
+        <a class="layui-btn layui-btn-danger delete_button">删除菜品</a>
+    </div>
+</blockquote>
+<div class="layui-form news_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="5%"/>
+            <col width="10%"/>
+            <col width="20%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="15%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th style="text-align:center;">配图</th>
+            <th style="text-align:center;">菜品名称</th>
+            <th style="text-align:center;">单价</th>
+            <th style="text-align:center;">单位</th>
+            <th style="text-align:center;">是否展示</th>
+            <th style="text-align:center;">操作</th>
+        </tr>
+        </thead>
+        <tbody class="news_content"></tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/todayfood/todayfoodList.js}"></script>
+</body>
+</html>

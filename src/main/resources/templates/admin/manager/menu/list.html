@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>项目列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/grid.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/nav.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        <a class="layui-btn"  lay-filter="add">添加导航</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn" lay-filter="addChild">添加子导航</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn " lay-filter="edit">编辑导航</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-danger "  lay-filter="delete">删除导航</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn " lay-filter="endEdit">保存</a>
+    </div>
+</blockquote>
+<blockquote class="layui-elem-quote">
+    <p><span style="color:#1E9FFF;"><span style="color: #da1d20">郑重提示</span>：请<span style="color: #da1d20">单行</span>操作完成后点击保存，否则所有操作无效，请知悉</span></p></blockquote>
+<div id="demo" class="grid" >
+</div>
+<style>
+    tbody td{
+        text-align:center;
+    }
+</style>
+<script id="view" type="text/html">
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th><b>权限名称</b></th>
+            <th><b>父节点名称</b></th>
+            <th><b>图标</b></th>
+            <th><b>类型</b></th>
+            <th><b>访问URL</b></th>
+            <th><b>权限标识</b></th>
+            <th><b>排序号</b></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{# layui.each(d.rows,function(index,r){ }}
+        <tr>
+            {{# if(d.op=='edit'){ }}
+            <td class="edit"><input type="text" value="{{r.name}}" name="name" /></td>
+            <td class="edit"><input type="text" value="{{r.parentName}}" name="parentName" /></td>
+            <td class="edit"><input type="text" value="{{r.icon}}" name="icon" /></td>
+            <td class="edit"><input type="text" value="{{r.type}}" name="type" /></td>
+            <td class="edit"><input type="text" value="{{r.url}}" name="url" /></td>
+            <td class="edit"><input type="text" value="{{r.perms}}" name="perms" /></td>
+            <td class="edit"><input type="text" value="{{r.sort}}" name="sort" /></td>
+            {{# }else{ }}
+            <td><b>{{r.name}}</b></td>
+            <td><b>{{r.parentName==null?"":r.parentName}}</b></td>
+            <td><b><i class="layui-icon">{{r.icon==null?"":r.icon}}</i></b></td>
+            <td><b>{{r.type}}</b></td>
+            <td><b>{{r.url==null?"":r.url}}</b></td>
+            <td><b>{{r.perms==null?"":r.perms}}</b></td>
+            <td><b>{{r.sort}}</b></td>
+            {{# } }}
+        </tr>
+        {{# }); }}
+        </tbody>
+    </table>
+</script>
+
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/admin/permission/permission.js}"></script>
+</body>
+</html>

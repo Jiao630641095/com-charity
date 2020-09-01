@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>新闻列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        关键字：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入关键字" class="layui-input title"/>
+        </div>
+        时间：
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入开始时间" class="layui-input search_input_time createTime"/>
+        </div>
+        -
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入结束时间" class="layui-input search_input_time modifyTime"/>
+        </div>
+        <a class="layui-btn search_button">查询</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn stick_button" style="background-color:#5FB878">重置</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="news:create">
+        <a class="layui-btn layui-btn-normal add_button" data-url="/admin/news/add">添加新闻</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="news:deleteAll">
+        <a class="layui-btn layui-btn-danger deleteAll_button" data-url="/admin/news/deleteAll">批量删除</a>
+    </div>
+</blockquote>
+<div class="layui-form news_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50"/>
+            <col width="30%"/>
+            <!--<col width="15%"/>-->
+            <col width="15%"/>
+            <col width="5%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th style="text-align:center;">新闻标题</th>
+            <!--<th style="text-align:center;">新闻摘要</th>-->
+            <th style="text-align:center;">
+                <div class="layui-input-inline" id="a">
+                    <select name="websiteID" lay-verify="required" lay-search="">
+                        <option value="">     全部网站</option>
+                        <option th:each="model : ${model}" th:value="${model.id}" th:text="${model.name}"></option>
+                    </select>
+                </div>
+            </th>
+            <th style="text-align:center;">是否展示</th>
+            <th style="text-align:center;">发布时间</th>
+            <th style="text-align:center;">修改时间</th>
+            <th style="text-align:center;">操作</th>
+        </tr>
+        </thead>
+        <tbody class="news_content"></tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/news/newsList.js}"></script>
+</body>
+</html>

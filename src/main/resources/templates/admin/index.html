@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>阿呆</title>
+    <!--<link rel="icon" href="../../static/favicon.ico"/>-->
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{//at.alicdn.com/t/font_tnyc012u2rlwstt9.css}" media="all" />
+</head>
+<body class="main_body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶部 -->
+    <div th:replace="admin/common/header :: header"></div>
+    <!-- 左侧导航 -->
+    <div th:replace="admin/common/left :: left" ></div>
+    <!-- 中间内容 -->
+    <div layout:include="admin/common/common :: content"></div>
+    <!-- 底部 -->
+    <div class="layui-footer footer" id="larry-footer">
+        <p>阿呆</p>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<script>
+    setInterval("timenow.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+</script>
+</body>
+</html>

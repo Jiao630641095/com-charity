@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>添加角色</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<form class="layui-form" lay-filter="test1">
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input name" lay-verify="required" placeholder="请输入角色名称"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色描述</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input remark" lay-verify="required" placeholder="请输入角色描述"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限分配</label>
+        <div class="layui-input-block" th:each="model : ${treeNodeList}" th:object="${model}">
+            <input type="checkbox" lay-skin="primary" th:id="*{id}" th:value="*{id}" th:title="*{name}"/>
+            <div class="layui-input-block" th:each="model : *{children}" th:object="${model}">
+                <input type="checkbox" lay-skin="primary" th:attr="data-url=*{parentId}" th:value="*{id}" th:title="*{name}"/>
+                <a th:each="model : *{children}" th:object="${model}">
+                    <input type="checkbox" lay-skin="primary" th:attr="data-url=*{parentId}" th:object="${model}" th:value="*{id}" th:title="*{name}"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="save_button">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/admin/role/roleAdd.js}"></script>
+</body>
+</html>

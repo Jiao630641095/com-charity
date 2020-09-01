@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>园区优惠政策列表</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/news.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/static/css/icon.css}" media="all"/>
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        关键字：
+        <div class="layui-input-inline">
+            <input type="text"  placeholder="请输入关键字" class="layui-input title"/>
+        </div>
+        时间：
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入开始时间" class="layui-input search_input_time createTime"/>
+        </div>
+        -
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入结束时间" class="layui-input search_input_time modifyTime"/>
+        </div>
+        <a class="layui-btn search_button"><i class="layui-icon">&#xe615;</i>查询</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn stick_button" style="background-color:#5FB878">重置</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpcstandard:create">
+        <a class="layui-btn layui-btn-normal add_button">添加政策</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpcstandard:delete">
+        <a class="layui-btn layui-btn-danger delete_button">删除政策</a>
+    </div>
+    <div class="layui-inline" shiro:hasPermission="tpcstandard:check">
+        <a class="layui-btn check_button">审核</a>
+    </div>
+</blockquote>
+<div class="layui-form standard_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50"/>
+            <col width="30%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"/></th>
+            <th style="text-align:center;">政策标题</th>
+            <th style="text-align:center;">发布人</th>
+            <th style="text-align:center;">审核状态</th>
+            <th style="text-align:center;">发布时间</th>
+            <th style="text-align:center;">修改时间</th>
+            <th style="text-align:center;">操作</th>
+        </tr>
+        </thead>
+        <tbody class="standard_content"></tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/chanyeyuan/fsstandard/tpcStandardList.js}"></script>
+</body>
+</html>
